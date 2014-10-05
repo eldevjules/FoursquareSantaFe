@@ -96,8 +96,8 @@ exports.explore = function(req, res){
 	async.doWhilst(
 	    function (callback) {
 	        
-	        foursquare.explore('-37.8144346','144.9619422', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
-	        //foursquare.explore('19.3649138','-99.268232', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
+	        //foursquare.explore('-37.8144346','144.9619422', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
+	        foursquare.explore('19.3649138','-99.268232', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
 
 	        	obtenidos = obtenidos+50;
 	        	total = results.totalResults;
