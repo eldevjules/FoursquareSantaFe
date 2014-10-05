@@ -3,9 +3,10 @@ google.maps.event.addDomListener(window, 'load', init);
 Mustache.tags = ['{[{', '}]}'];
 
 var map, pointarray, heatmap, gradient, trendings, markersTrending;
-var centroSantaFe = new google.maps.LatLng(25.7812698,-80.1954067);
+// var centroSantaFe = new google.maps.LatLng(40.7504877,-73.9839238); 
+// var centroSantaFe = new google.maps.LatLng(51.5065757,-0.0907085);
 var fullWidth = $( window ).width() -300;
-// var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
+var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
 
 var zoomInicial = 15;
 var zoomInPlace = 18;
@@ -218,7 +219,7 @@ function explore(){
 
         heatmap.set('radius', heatmap.get('radius') ? null : 10);
         
-        heatmap.set('opacity', heatmap.get('opacity') ? null : 0.3);
+        heatmap.set('opacity', heatmap.get('opacity') ? null : 0.8);
 
         heatmap.setMap(map);
 
@@ -238,13 +239,16 @@ function explore(){
                 place['categoriaIcono'] = place.categories[0].icon.prefix+'64.png'
                 trendings.push(place);
 
+                console.log(place.categories[0].name);
+
                 //Selección de imagen
                 var imageUrl = '';  
                 if(place.categories[0].name == "Salad Place"){
                     imageUrl = '/img/pines/ensalada2.png';
                     place['clase'] = "color-13";
                 }
-                if(place.categories[0].name == "Gym / Fitness Center"){
+                if(place.categories[0].name == "Gym / Fitness Center" ||
+                    place.categories[0].name == "Gym"){
                     imageUrl = '/img/pines/gym2.png';
                     place['clase'] = "color-8";
                 }
@@ -256,7 +260,9 @@ function explore(){
                     imageUrl = '/img/pines/cafe2.png';
                     place['clase'] = "color-1";
                 }
-                if(place.categories[0].name == "Food"){
+                if(place.categories[0].name == "Food" || 
+                    place.categories[0].name == "American Restaurant" || 
+                    place.categories[0].name == "Restaurant"){
                     imageUrl = '/img/pines/comida2.png';
                     place['clase'] = "color-10";
                 }
@@ -288,7 +294,8 @@ function explore(){
                     imageUrl = '/img/pines/universidad2.png';
                     place['clase'] = "color-4";
                 }
-                if(place.categories[0].name == "Professional & Other Places"){
+                if(place.categories[0].name == "Professional & Other Places" ||
+                    place.categories[0].name == "Convention Center"){
                     imageUrl = '/img/pines/trabajo2.png';
                     place['clase'] = "color-3";
                 }

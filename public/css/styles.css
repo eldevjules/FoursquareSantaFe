@@ -57,13 +57,18 @@ body {
   float: left;
   width: 20%;
   height: 180px;
-  border-right: 2px solid #d5d5d5;
   background-color: #f4f4f4;
+  -moz-box-shadow: inset 1px 0px 0px #ccc;
+  -webkit-box-shadow: inset 1px 0px 0px #ccc;
+  box-shadow: inset 1px 0px 0px #ccc;
 }
 .map-container .top5places .singlePlace.first {
   -webkit-border-bottom-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
   border-bottom-left-radius: 5px;
+  -moz-box-shadow: inset 1px 0px 0px #ffffff;
+  -webkit-box-shadow: inset 1px 0px 0px #ffffff;
+  box-shadow: inset 1px 0px 0px #ffffff;
 }
 .map-container .top5places .singlePlace.last {
   border-right: 2px solid #f4f4f4;

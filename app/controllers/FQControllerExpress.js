@@ -96,8 +96,9 @@ exports.explore = function(req, res){
 	async.doWhilst(
 	    function (callback) {
 	        
-	        foursquare.explore('25.7812698','-80.1954067', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
-	        // foursquare.explore('19.3649138','-99.268232', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
+	        // foursquare.explore('40.7504877','-73.9839238', '', { 'radius': 3000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
+	        // foursquare.explore('51.5065757','-0.0907085', '', { 'radius': 3000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
+	        foursquare.explore('19.3649138','-99.268232', '', { 'radius': 3000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
 
 	        	obtenidos = obtenidos+50;
 	        	total = results.totalResults;
@@ -136,8 +137,9 @@ exports.trending = function(req, res){
 
 	var places = [];
 
-	foursquare.getTrending('25.7812698','-80.1954067', { 'radius': 1500, 'limit':5, }, '', function(err, results){
-	// foursquare.getTrending('19.3649138','-99.268232', { 'radius': 1500, 'limit':5, }, '', function(err, results){
+	// foursquare.getTrending('40.7504877','-73.9839238', { 'radius': 3000, 'limit':5, }, '', function(err, results){
+	// foursquare.getTrending('51.5065757','-0.0907085', { 'radius': 3000, 'limit':5, }, '', function(err, results){
+	foursquare.getTrending('19.3649138','-99.268232', { 'radius': 3000, 'limit':5, }, '', function(err, results){
 
     	async.each(results.venues, function( venue, callback) {
 
