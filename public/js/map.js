@@ -1,11 +1,13 @@
 // When the window has finished loading create our google map below
 google.maps.event.addDomListener(window, 'load', init);
+Mustache.tags = ['{[{', '}]}'];
 
 var map, pointarray, heatmap, gradient, trendings, markersTrending;
 var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
 var zoomInicial = 16;
 var zoomInPlace = 18;
 var diff_height = 0;
+var placeVisit = {};
 
 function init() {
     // Basic options for a simple Google Map
@@ -129,8 +131,6 @@ function kamikazes(){
 //Cada 30 segundos
 function explore(){
 
-    console.log("Yendo a explorer");
-
     //Mapa de Calor
     $.get( "/explore/", function( data ) {
       
@@ -159,16 +159,70 @@ function explore(){
             //Recorremos los lugares trending
             $.each(response.places, function( index, place ) {
                 
+                place['item'] = index+1;
                 trendings.push(place);
-                console.log(place);
 
+                //Selección de imagen
+                var imageUrl = '';  
+                if(place.categories[0].name == "Salad Place"){
+                    imageUrl = '/img/pines/ensalada.png';
+                    place['clase'] = "color-1";
+                }
+                if(place.categories[0].name == "Gym / Fitness Center"){
+                    imageUrl = '/img/pines/gym.png';
+                    place['clase'] = "color-1";
+                }
+                if(place.categories[0].name == "Bar" || place.categories[0].name == "Hookah Bar"){
+                    imageUrl = '/img/pines/bar.png';
+                    place['clase'] = "color-1";
+                }
+                if(place.categories[0].name == "Café"){
+                    imageUrl = '/img/pines/cafe.png';
+                    place['clase'] = "color-1";
+                }
+                if(place.categories[0].name == "Food"){
+                    imageUrl = '/img/pines/comida.png';
+                    place['clase'] = "color-1";
+                }
+                if(place.categories[0].name == "Arts & Entertainment" || 
+                    place.categories[0].name == "Indie Movie Theater" ||
+                    place.categories[0].name == "Multiplex"){
+                    imageUrl = '/img/pines/entretenimiento.png';
+                    place['clase'] = "color-1";
+                }
+                if(place.categories[0].name == "Hotel"){
+                    imageUrl = '/img/pines/hotel.png';
+                    place['clase'] = "color-1";
+                }
+                if(place.categories[0].name == "Nightlife Spot"){
+                    imageUrl = '/img/pines/noche.png';
+                    place['clase'] = "color-1";
+                }
+                if(place.categories[0].name == "Tea Room"){
+                    imageUrl = '/img/pines/te.png';
+                    place['clase'] = "color-1";
+                }
+                if(place.categories[0].name == "Shop & Service" || place.categories[0].name == "Mall"){
+                    imageUrl = '/img/pines/tienda.png';
+                    place['clase'] = "color-1";
+                }
+                if(place.categories[0].name == "College & University"){
+                    imageUrl = '/img/pines/universidad.png';
+                    place['clase'] = "color-1";
+                }
+                if(place.categories[0].name == "Professional & Other Places"){
+                    imageUrl = '/img/pines/trabajo.png';
+                    place['clase'] = "color-1";
+                }
+                if(imageUrl == ''){
+                    imageUrl = '/img/pines/general.png';
+                    place['clase'] = "color-1";
+                }
 
-
-                var imageUrl = '/img/ping.png';
-
+                //imageUrl = '/img/pines/general.png';
 
                 //Creando el markerImage
-                var markerImage = new google.maps.MarkerImage(imageUrl, new google.maps.Size(24, 32));
+                var markerImage = new google.maps.MarkerImage(imageUrl, new google.maps.Size(47, 80));
                 //Punto donde va
                 var latLng = new google.maps.LatLng(place.location.lat, place.location.lng)
                 //Objeto del marcador
@@ -187,8 +241,15 @@ function explore(){
             var bounds = map.getBounds(),
             ne = bounds.getNorthEast(),
             sw = bounds.getSouthWest();
-
             diff_height = ne.lat() - sw.lat();
+
+
+            console.log(trendings);
+
+            var template = $('#templateSinglePlace').html();
+            var rendered = Mustache.render(template, {places: trendings});
+            console.log(rendered);
+            $('#top5Places').html(rendered);
             navegaSobreTrending(0);
 
         });
@@ -206,9 +267,6 @@ function navegaSobreTrending(n){
     var newN = n + 1;
     if(newN <= trendings.length){
 
-      //Desplaza el mapa
-      map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
-
       if(n == 0){
         nAnterior = trendings.length-1;
       }else{
@@ -218,6 +276,13 @@ function navegaSobreTrending(n){
       //Quita animate del marker anterior
       markerN = markersTrending[nAnterior];
       markerN.setAnimation(null);
+
+      //Desplaza el mapa
+      map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
+
+      //Mostramos la info del lugar
+      showPlace(trendN);
+
       //Anima este marker
       markerN = markersTrending[n];
       markerN.setAnimation(google.maps.Animation.BOUNCE);
@@ -241,5 +306,9 @@ function navegaSobreTrending(n){
       navegaSobreTrending(0);
     }
   },5000);
+}
+
+function showPlace(place){
+    console.log(place);
 }
 

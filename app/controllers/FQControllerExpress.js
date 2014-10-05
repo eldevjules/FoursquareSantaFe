@@ -135,13 +135,9 @@ exports.trending = function(req, res){
 
 	var places = [];
 
-	foursquare.explore('19.3649138','-99.268232', '', { 'radius': 1500, 'limit':5, }, '', function(err, results){
+	foursquare.getTrending('19.3649138','-99.268232', { 'radius': 1500, 'limit':5, }, '', function(err, results){
 
-    	_.forEach(results.groups[0].items, function(place) {
-    		places.push(place.venue);
-    	});
-
-    	res.jsonp({'places': places});
+    	res.jsonp({'places': results.venues});
 
 	});
 
@@ -152,7 +148,7 @@ exports.kamikazes = function(req, res){
 	//
 	FQUser.find({}, 'data.user.checkins data.user.badges.count data.user.mayorships.count data.user.photo data.user.gender data.user.firstName data.user.lastName').sort([['data.user.checkins.count', 'descending']]).exec(function(err, top){
 
-		console.log(top);
+		//console.log(top);
 		res.jsonp({'kamikazes': top});
 
 	});
