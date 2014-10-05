@@ -86,11 +86,14 @@ exports.callback = function(req, res){
 
 exports.explore = function(req, res){
 
-	var obtenidos = 0
-	var total = 0;
-	var places = [];
+	var obtenidos = 0,
+	places = [],
+	placesData = [],
+  dicPlaces = {},
+  intPlaces = [],
+  topPlaces = [],
+	total = 0;
 
-	var placesData = [];
 
 
 	async.doWhilst(
@@ -98,6 +101,10 @@ exports.explore = function(req, res){
 	        
 	        // foursquare.explore('19.408038','-99.172457', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
 	        foursquare.explore('19.3649138','-99.268232', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
+
+            dicPlaces = {};
+            intPlaces = [];
+            topPlaces = [];
 
 	        	obtenidos = obtenidos+50;
 	        	total = results.totalResults;
@@ -110,11 +117,24 @@ exports.explore = function(req, res){
 
 	        		//Preguntamos cuanta gente hay aqui en este momento
 	        		//console.log(place.venue.hereNow.count);
-	        		for(var i=0; i<place.venue.hereNow.count; i++){
+              var totalVenue = place.venue.hereNow.count;
+              if(typeof dicPlaces[totalVenue] === 'undefined'){
+                dicPlaces[totalVenue] = [];
+              }
+
+              dicPlaces[totalVenue].push(place);
+
+	        		for(var i=0; i<totalVenue; i++){
 	        			placesData.push({ 'lat':place.venue.location.lat, 'lng':place.venue.location.lng });
 	        		}
 
 	        	});
+
+            _.forEach(dicPlaces, function(val, i){
+              intPlaces.push(i);
+            });
+            intPlaces.sort();
+            intPlaces.reverse();
 
 	        	callback();
 
@@ -125,8 +145,17 @@ exports.explore = function(req, res){
 	    function (err) {
 	        
 	        //var orderPlaces = _.sortBy(places, 'stats.checkinsCount');
-	        
-	        res.jsonp({'heatMap': placesData, 'places':places});
+        _.forEach(intPlaces, function(i){
+          _.forEach(dicPlaces[i], function(val, key){
+            topPlaces.push(val);  
+            console.log(val.venue.id);
+          });
+        }); 
+
+        topPlaces = topPlaces.slice(0,5);
+
+
+	      res.jsonp({'heatMap': placesData, 'places':places});
 	    }
 	);
 
