@@ -294,7 +294,8 @@ function explore(){
                     place['clase'] = "color-4";
                 }
                 if(place.categories[0].name == "Professional & Other Places" ||
-                    place.categories[0].name == "Convention Center"){
+                    place.categories[0].name == "Convention Center" ||
+                    place.categories[0].name == "Tech Startup"){
                     imageUrl = '/img/pines/trabajo2.png';
                     place['clase'] = "color-3";
                 }

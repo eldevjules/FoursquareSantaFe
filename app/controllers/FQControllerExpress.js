@@ -240,7 +240,7 @@ exports.venue = function(req, res){
 exports.kamikazes = function(req, res){
 
 	//
-	FQUser.find({}, 'data.user.checkins data.user.badges.count data.user.mayorships.count data.user.photo data.user.gender data.user.firstName data.user.lastName').sort([['data.user.checkins.count', 'descending']]).exec(function(err, top){
+	FQUser.find({}, 'data.user.checkins data.user.badges.count data.user.mayorships.count data.user.photo data.user.gender data.user.firstName data.user.lastName').sort([['data.user.checkins.count', 'descending']]).limit(5).exec(function(err, top){
 
 		//console.log(top);
 		res.jsonp({'kamikazes': top});
