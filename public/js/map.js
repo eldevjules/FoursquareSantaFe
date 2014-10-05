@@ -2,12 +2,13 @@
 google.maps.event.addDomListener(window, 'load', init);
 Mustache.tags = ['{[{', '}]}'];
 
-var fullWidth = $( window ).width() -300;
 var map, pointarray, heatmap, gradient, trendings, markersTrending;
-//var centroSantaFe = new google.maps.LatLng(37.7590572,-122.4262703);
+// var centroSantaFe = new google.maps.LatLng(19.408038,-99.172457);
+var fullWidth = $( window ).width() -300;
+var centroSantaFe = new google.maps.LatLng(19.3666209,-99.265259);
 var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
 
-var zoomInicial = 16;
+var zoomInicial = 15;
 var zoomInPlace = 18;
 var diff_height = 0;
 var placeVisit = {};
@@ -107,7 +108,7 @@ function init() {
     //Poniendo marcadores default
     
     //Kamikaze
-    var markerImagekamikaze = new google.maps.MarkerImage('/img/pines/kamikaze.png', new google.maps.Size(80, 80));
+    var markerImagekamikaze = new google.maps.MarkerImage('/img/pines/kamikaze2.png', new google.maps.Size(60, 60));
     var kamikazelab = new google.maps.LatLng(19.359783,-99.278924);
     //Objeto del marcador
     var marker = new google.maps.Marker({
@@ -117,7 +118,7 @@ function init() {
         map: map,
     });
     //Ibero
-    var markerImageibero = new google.maps.MarkerImage('/img/pines/ibero.png', new google.maps.Size(80, 80));
+    var markerImageibero = new google.maps.MarkerImage('/img/pines/ibero2.png', new google.maps.Size(60, 60));
     var ibero = new google.maps.LatLng(19.3702546,-99.2645616);
     //Objeto del marcador
     var marker = new google.maps.Marker({
@@ -127,7 +128,7 @@ function init() {
         map: map,
     });
     //Televisa
-    var markerImagetelevisa = new google.maps.MarkerImage('/img/pines/televisa.png', new google.maps.Size(80, 80));
+    var markerImagetelevisa = new google.maps.MarkerImage('/img/pines/televisa2.png', new google.maps.Size(60, 60));
     var televisa = new google.maps.LatLng(19.3755553,-99.2569681);
     //Objeto del marcador
     var marker = new google.maps.Marker({
@@ -137,7 +138,7 @@ function init() {
         map: map,
     });
     //Banamex
-    var markerImagebanamex = new google.maps.MarkerImage('/img/pines/banamex.png', new google.maps.Size(80, 80));
+    var markerImagebanamex = new google.maps.MarkerImage('/img/pines/banamex2.png', new google.maps.Size(60, 60));
     var banamex = new google.maps.LatLng(19.3753326,-99.2592855);
     //Objeto del marcador
     var marker = new google.maps.Marker({
@@ -147,7 +148,7 @@ function init() {
         map: map,
     });
     //Tec
-    var markerImagetec = new google.maps.MarkerImage('/img/pines/tec.png', new google.maps.Size(80, 80));
+    var markerImagetec = new google.maps.MarkerImage('/img/pines/tec2.png', new google.maps.Size(60, 60));
     var tec = new google.maps.LatLng(19.3596064,-99.2613108);
     //Objeto del marcador
     var marker = new google.maps.Marker({
@@ -157,7 +158,7 @@ function init() {
         map: map,
     });
     //Chrysler
-    var markerImagechrysler = new google.maps.MarkerImage('/img/pines/chrysler.png', new google.maps.Size(80, 80));
+    var markerImagechrysler = new google.maps.MarkerImage('/img/pines/chrysler2.png', new google.maps.Size(60, 60));
     var chrysler = new google.maps.LatLng(19.3568705,-99.2746439);
     //Objeto del marcador
     var marker = new google.maps.Marker({
@@ -216,7 +217,12 @@ function explore(){
         });
         heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
 
+        heatmap.set('radius', heatmap.get('radius') ? null : 10);
+        
+        heatmap.set('opacity', heatmap.get('opacity') ? null : 0.3);
+
         heatmap.setMap(map);
+
 
         //Trendings
         $.get( "/trending/", function( response ) {
@@ -236,64 +242,64 @@ function explore(){
                 //Selección de imagen
                 var imageUrl = '';  
                 if(place.categories[0].name == "Salad Place"){
-                    imageUrl = '/img/pines/ensalada.png';
+                    imageUrl = '/img/pines/ensalada2.png';
                     place['clase'] = "color-13";
                 }
                 if(place.categories[0].name == "Gym / Fitness Center"){
-                    imageUrl = '/img/pines/gym.png';
+                    imageUrl = '/img/pines/gym2.png';
                     place['clase'] = "color-8";
                 }
                 if(place.categories[0].name == "Bar" || place.categories[0].name == "Hookah Bar"){
-                    imageUrl = '/img/pines/bar.png';
+                    imageUrl = '/img/pines/bar2.png';
                     place['clase'] = "color-7";
                 }
                 if(place.categories[0].name == "Café"){
-                    imageUrl = '/img/pines/cafe.png';
+                    imageUrl = '/img/pines/cafe2.png';
                     place['clase'] = "color-1";
                 }
                 if(place.categories[0].name == "Food"){
-                    imageUrl = '/img/pines/comida.png';
+                    imageUrl = '/img/pines/comida2.png';
                     place['clase'] = "color-10";
                 }
                 if(place.categories[0].name == "Arts & Entertainment" || 
                     place.categories[0].name == "Indie Movie Theater" ||
                     place.categories[0].name == "Multiplex"){
-                    imageUrl = '/img/pines/entretenimiento.png';
+                    imageUrl = '/img/pines/entretenimiento2.png';
                     place['clase'] = "color-12";
                 }
                 if(place.categories[0].name == "Hotel"){
-                    imageUrl = '/img/pines/hotel.png';
+                    imageUrl = '/img/pines/hotel2.png';
                     place['clase'] = "color-9";
                 }
                 if(place.categories[0].name == "Nightlife Spot" ||
                     place.categories[0].name == "Nightclub"){
-                    imageUrl = '/img/pines/noche.png';
+                    imageUrl = '/img/pines/noche2.png';
                     place['clase'] = "color-2";
                 }
                 if(place.categories[0].name == "Tea Room"){
-                    imageUrl = '/img/pines/te.png';
+                    imageUrl = '/img/pines/te2.png';
                     place['clase'] = "color-6";
                 }
                 if(place.categories[0].name == "Shop & Service" || place.categories[0].name == "Mall"){
-                    imageUrl = '/img/pines/tienda.png';
+                    imageUrl = '/img/pines/tienda2.png';
                     place['clase'] = "color-11";
                 }
                 if(place.categories[0].name == "College & University" ||
                     place.categories[0].name == "University"){
-                    imageUrl = '/img/pines/universidad.png';
+                    imageUrl = '/img/pines/universidad2.png';
                     place['clase'] = "color-4";
                 }
                 if(place.categories[0].name == "Professional & Other Places"){
-                    imageUrl = '/img/pines/trabajo.png';
+                    imageUrl = '/img/pines/trabajo2.png';
                     place['clase'] = "color-3";
                 }
                 if(imageUrl == ''){
-                    imageUrl = '/img/pines/general.png';
+                    imageUrl = '/img/pines/general2.png';
                     place['clase'] = "color-5";
                 }
 
                 //Creando el markerImage
-                var markerImage = new google.maps.MarkerImage(imageUrl, new google.maps.Size(47, 80));
+                var markerImage = new google.maps.MarkerImage(imageUrl, new google.maps.Size(35, 60));
                 //Punto donde va
                 var latLng = new google.maps.LatLng(place.location.lat, place.location.lng)
                 //Objeto del marcador

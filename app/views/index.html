@@ -40,13 +40,97 @@
             
             <!-- check-in-kamikaze -->
             <div class="check-in-kamikaze">
-                <div class="header">
-                    <div class="icon">
-                        <img src="../img/icono-kamikaze.png" alt="oficina kamikaze">
-                    </div>
-                    <div class="title"><span>CHECK-IN'S</span> EN KAMIKAZE LAB</div>
-                </div>
+               <div class="header">
+                   <div class="icon"></div>
+                   <div class="title"><span>CHECK-IN'S</span> EN KAMIKAZE LAB</div>
+               </div>
 
+               <div class="ranks">
+                   <div class="single-user">
+                       <div class="avatar">
+                           <img src="http://irs1.4sqi.net/img/user/256x256/RS1SI2ZADUIQ4VUY.jpg" alt="avatar">
+                       </div>
+
+                       <div class="name">Ximena Iñigo</div>
+
+                       <div class="checkins">
+                           <div class="icon">
+                               <img src="../img/foursquare/checkIn-blue.jpg" alt="icon">
+                           </div>
+                           <div class="number-total">
+                               <div class="number">152</div>
+                           </div>
+                       </div>
+                   </div>
+
+                   <div class="single-user">
+                       <div class="avatar">
+                           <img src="http://irs2.4sqi.net/img/user/256x256/WSC0SJQXBOTDHXKB.jpg" alt="avatar">
+                       </div>
+
+                       <div class="name">Diego Cordero</div>
+
+                       <div class="checkins">
+                           <div class="icon">
+                               <img src="../img/foursquare/checkIn-blue.jpg" alt="icon">
+                           </div>
+                           <div class="number-total">
+                               <div class="number">149</div>
+                           </div>
+                       </div>
+                   </div>
+
+                   <div class="single-user">
+                       <div class="avatar">
+                           <img src="http://irs3.4sqi.net/img/user/256x256/C2UMDPZM5ZRPLEPT.png" alt="avatar">
+                       </div>
+
+                       <div class="name">Julio Guevara</div>
+
+                       <div class="checkins">
+                           <div class="icon">
+                               <img src="../img/foursquare/checkIn-blue.jpg" alt="icon">
+                           </div>
+                           <div class="number-total">
+                               <div class="number">138</div>
+                           </div>
+                       </div>
+                   </div>
+
+                   <div class="single-user">
+                       <div class="avatar">
+                           <img src="http://irs1.4sqi.net/img/user/256x256/HIGBLSHYIPRJE0YA.jpg" alt="avatar">
+                       </div>
+
+                       <div class="name">Alejandro Gatica</div>
+
+                       <div class="checkins">
+                           <div class="icon">
+                               <img src="../img/foursquare/checkIn-blue.jpg" alt="icon">
+                           </div>
+                           <div class="number-total">
+                               <div class="number">92</div>
+                           </div>
+                       </div>
+                   </div>
+
+                   <div class="single-user">
+                       <div class="avatar">
+                           <img src="http://irs1.4sqi.net/img/user/256x256/2826853-1NP4SJH3NZOQ2YUL.jpg" alt="avatar">
+                       </div>
+
+                       <div class="name">Federico Clasing</div>
+
+                       <div class="checkins">
+                           <div class="icon">
+                               <img src="../img/foursquare/checkIn-blue.jpg" alt="icon">
+                           </div>
+                           <div class="number-total">
+                               <div class="number">88</div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
             </div>
             <!-- close check-in-kamikaze -->
 
@@ -84,15 +168,18 @@
                     </div>
 
                     <div class="infoPrice">
-                        <div class="dollarSigns">{[{hereNow.count}]}</div>
-                        <div class="typePlace"><span>|</span>{[{#categories}]} {[{name}]} {[{/categories}]}</div>
+                        <div class="typePlace">{[{#categories}]} {[{name}]} {[{/categories}]}</div>
                     </div>
 
                     <div class="checkinPlace">
-                        <div class="icon color-1">
-                        </div>
+                        <div class="icon {[{clase}]}"></div>
                         <div class="number">{[{stats.checkinsCount}]}</div>
                         <div class="text">Check-ins</div>
+                    </div>
+
+                    <div class="checkinPlace">
+                        <div class="number">{[{hereNow.count}]}</div>
+                        <div class="text">Usuarios aqui</div>
                     </div>
                 </div>
             </div>
