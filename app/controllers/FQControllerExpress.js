@@ -190,8 +190,9 @@ exports.trending = function(req, res){
 
 	var places = [];
 
-	// foursquare.getTrending('19.408038','-99.172457', { 'radius': 1500, 'limit':5, }, '', function(err, results){
-	foursquare.getTrending('19.3649138','-99.268232', { 'radius': 1500, 'limit':5, }, '', function(err, results){
+	// foursquare.getTrending('40.7504877','-73.9839238', { 'radius': 3000, 'limit':5, }, '', function(err, results){
+	// foursquare.getTrending('51.5065757','-0.0907085', { 'radius': 3000, 'limit':5, }, '', function(err, results){
+	foursquare.getTrending('19.3649138','-99.268232', { 'radius': 3000, 'limit':5, }, '', function(err, results){
 
     	async.each(results.venues, function( venue, callback) {
 
