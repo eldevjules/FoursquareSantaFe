@@ -255,7 +255,7 @@ function explore(){
                     imageUrl = '/img/pines/bar2.png';
                     place['clase'] = "color-7";
                 }
-                if(place.categories[0].name == "Café"){
+                if(place.categories[0].name == "Café" || place.categories[0].name == "Diner"){
                     imageUrl = '/img/pines/cafe2.png';
                     place['clase'] = "color-1";
                 }
