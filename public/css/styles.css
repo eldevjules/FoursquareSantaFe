@@ -131,10 +131,14 @@ body {
   float: left;
   position: relative;
   top: -2px;
+  height: 18px;
   margin-right: 6px;
 }
 .map-container .top5places .singlePlace .checkinPlace .icon img {
   height: 18px;
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-1 {
+  background-image: url("/img/naranja.png");
 }
 .map-container .top5places .singlePlace .checkinPlace .number {
   float: left;
@@ -264,10 +268,8 @@ body {
 }
 .map-container .placeContainer {
   position: fixed;
-  bottom: 10px;
+  bottom: -550px;
   width: 1000px;
-  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s;
-  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s;
 }
 .map-container .placeContainer .header {
   height: 180px;
@@ -312,14 +314,19 @@ body {
   margin-left: 20px;
 }
 .map-container .placeContainer .contentInfoPlace .description .title {
-  font-size: 18px;
+  font-size: 20px;
   font-family: 'BentonBold', sans-serif;
 }
 .map-container .placeContainer .contentInfoPlace .description .contentDescription {
   width: 370px;
+  margin-top: 15px;
   font-size: 14px;
   color: #494949;
   line-height: 20px;
+}
+.map-container .placeContainer .contentInfoPlace .description .contentDescription p {
+  margin-top: 15px;
+  font-size: 18px;
 }
 .map-container .placeContainer .contentInfoPlace .circles {
   float: right;
@@ -329,7 +336,7 @@ body {
   float: left;
   width: 120px;
   height: 120px;
-  margin-right: 20px;
+  margin-right: 24px;
   border-radius: 50%;
 }
 .map-container .placeContainer .contentInfoPlace .circles .circle .img-circle {
@@ -348,24 +355,6 @@ body {
   font-family: 'BentonBold', sans-serif;
   text-align: center;
   color: #ffffff;
-}
-.map-container .placeContainer .contentInfoPlace .circles .circle .img-mayorCrown {
-  position: relative;
-  top: -30px;
-  width: 120px;
-  text-align: center;
-}
-.map-container .placeContainer .contentInfoPlace .circles .circle .img-mayorCrown img {
-  height: 30px;
-}
-.map-container .placeContainer .contentInfoPlace .circles .circle .img-mayor {
-  position: relative;
-  top: -32px;
-}
-.map-container .placeContainer .contentInfoPlace .circles .circle .img-mayor img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
 }
 .map-container .placeContainer .gallery {
   height: 155px;

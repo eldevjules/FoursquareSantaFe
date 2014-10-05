@@ -148,10 +148,15 @@ body {
                     float: left;
                     position: relative;
                     top: -2px;
+                    height: 18px;
                     margin-right: 6px;
 
                     img {
                         height: 18px;
+                    }
+
+                    &.color-1 {
+                        background-image: url("/img/naranja.png");
                     }
                 }
 
@@ -366,11 +371,8 @@ body {
 
     .placeContainer {
         position: fixed;
-        bottom: 10px;
-        // bottom: -550px;
+        bottom: -550px;
         width: 1000px;
-        -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.8s;
-        transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.8s;
 
         .header {
             height: 180px;
@@ -421,15 +423,21 @@ body {
                 margin-left: 20px;
 
                 .title {
-                    font-size: 18px;
+                    font-size: 20px;
                     font-family: 'BentonBold', sans-serif;
                 }
 
                 .contentDescription {
                     width: 370px;
+                    margin-top: 15px;
                     font-size: 14px;
                     color: #494949;
                     line-height: 20px;
+
+                    p {
+                        margin-top: 15px;
+                        font-size: 18px;
+                    }
                 }
             }
             
@@ -441,7 +449,7 @@ body {
                     float: left;
                     width: 120px;
                     height: 120px;
-                    margin-right: 20px;
+                    margin-right: 24px;
                     border-radius: 50%;
                     
                     .img-circle {
@@ -463,27 +471,27 @@ body {
                         color: #ffffff;
                     }
 
-                    .img-mayorCrown {
-                        position: relative;
-                        top: -30px;
-                        width: 120px;
-                        text-align: center;
+                    // .img-mayorCrown {
+                    //     position: relative;
+                    //     top: -30px;
+                    //     width: 120px;
+                    //     text-align: center;
 
-                        img {
-                            height: 30px;
-                        }
-                    }
+                    //     img {
+                    //         height: 30px;
+                    //     }
+                    // }
 
-                    .img-mayor {
-                        position: relative;
-                        top: -32px;
+                    // .img-mayor {
+                    //     position: relative;
+                    //     top: -32px;
 
-                        img {
-                            width: 120px;
-                            height: 120px;
-                            border-radius: 50%;
-                        }
-                    }
+                    //     img {
+                    //         width: 120px;
+                    //         height: 120px;
+                    //         border-radius: 50%;
+                    //     }
+                    // }
                 }
             }
         }
