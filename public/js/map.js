@@ -189,8 +189,10 @@ function init() {
 function kamikazes(){
 
     //Top de kamikazes
-    $.get( "/kamikazes/", function( data ) {
-        console.log(data);
+    $.get("/kamikazes/", function( data ){
+      var template = $('#templateSingleUser').html();
+      var rendered = Mustache.render(template, {tops: data.kamikazes});
+      $('#top-cheks').html(rendered);
     });
 
 }
@@ -316,7 +318,6 @@ function explore(){
 
             var template = $('#templateSinglePlace').html();
             var rendered = Mustache.render(template, {places: trendings});
-            console.log(rendered);
             $('#top5Places').html(rendered);
             navegaSobreTrending(0);
 
