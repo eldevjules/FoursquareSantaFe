@@ -125,7 +125,7 @@ exports.explore = function(req, res){
 	        
 	        //var orderPlaces = _.sortBy(places, 'stats.checkinsCount');
 	        
-	        res.jsonp({'heatMap': placesData});
+	        res.jsonp({'heatMap': placesData, 'places':places});
 	    }
 	);
 
@@ -142,6 +142,18 @@ exports.trending = function(req, res){
     	});
 
     	res.jsonp({'places': places});
+
+	});
+
+}
+
+exports.kamikazes = function(req, res){
+
+	//
+	FQUser.find({}, 'data.user.checkins data.user.badges.count data.user.mayorships.count data.user.photo data.user.gender data.user.firstName data.user.lastName').sort([['data.user.checkins.count', 'descending']]).exec(function(err, top){
+
+		console.log(top);
+		res.jsonp({'kamikazes': top});
 
 	});
 

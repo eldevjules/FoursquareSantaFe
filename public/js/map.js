@@ -101,6 +101,9 @@ function init() {
     //Primer consulta
     explore();
 
+    //Yendo por los kamikazes
+    kamikazes();
+
     //Timer
     // setInterval(function(){
     //     explore();
@@ -109,6 +112,16 @@ function init() {
     // setTimeout(function(){
     //     map.panTo(new google.maps.LatLng('19.3568971','-99.2514414'));
     // },6000);
+
+}
+
+
+function kamikazes(){
+
+    //Top de kamikazes
+    $.get( "/kamikazes/", function( data ) {
+        console.log(data);
+    });
 
 }
 
