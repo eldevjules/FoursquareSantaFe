@@ -2,10 +2,10 @@
 google.maps.event.addDomListener(window, 'load', init);
 Mustache.tags = ['{[{', '}]}'];
 
-var map, pointarray, heatmap, gradient, trendings, markersTrending;
-var centroSantaFe = new google.maps.LatLng(19.408038,-99.172457);
 var fullWidth = $( window ).width() -300;
-//var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
+var map, pointarray, heatmap, gradient, trendings, markersTrending;
+//var centroSantaFe = new google.maps.LatLng(37.7590572,-122.4262703);
+var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
 
 var zoomInicial = 16;
 var zoomInPlace = 18;
@@ -278,7 +278,8 @@ function explore(){
                     imageUrl = '/img/pines/tienda.png';
                     place['clase'] = "color-11";
                 }
-                if(place.categories[0].name == "College & University"){
+                if(place.categories[0].name == "College & University" ||
+                    place.categories[0].name == "University"){
                     imageUrl = '/img/pines/universidad.png';
                     place['clase'] = "color-4";
                 }
