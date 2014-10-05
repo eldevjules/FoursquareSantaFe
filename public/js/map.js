@@ -5,6 +5,7 @@ var map, pointarray, heatmap, gradient, trendings, markersTrending;
 var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
 var zoomInicial = 16;
 var zoomInPlace = 18;
+var diff_height = 0;
 
 function init() {
     // Basic options for a simple Google Map
@@ -170,6 +171,11 @@ function explore(){
             });
 
             //Una vez que los markes trendings estan puestos hay que navegar sobre ellos
+            var bounds = map.getBounds(),
+            ne = bounds.getNorthEast(),
+            sw = bounds.getSouthWest();
+
+            diff_height = ne.lat() - sw.lat();
             navegaSobreTrending(0);
 
         });
@@ -189,15 +195,13 @@ function navegaSobreTrending(n){
         if(newN <= trendings.length){
             
             //Desplaza el mapa
-            map.panTo(new google.maps.LatLng(trendN.location.lat,trendN.location.lng));
-            
+            map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
+
             if(n == 0){
                 nAnterior = trendings.length-1;
             }else{
                 nAnterior = n-1;
             }
-            console.log("nAnterior: ");
-            console.log(nAnterior);
 
             //Quita animate del marker anterior
             markerN = markersTrending[nAnterior];
