@@ -92,6 +92,7 @@ exports.explore = function(req, res){
   dicPlaces = {},
   intPlaces = [],
   topPlaces = [],
+  topPlacesInfo = [],
 	total = 0;
 
 
@@ -100,11 +101,11 @@ exports.explore = function(req, res){
 	    function (callback) {
 	        
 	        // foursquare.explore('19.408038','-99.172457', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
-	        foursquare.explore('19.3649138','-99.268232', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
+	        foursquare.explore('19.3649138','-99.268232', '', { 'radius': 3000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
 
-            dicPlaces = {};
-            intPlaces = [];
-            topPlaces = [];
+            //dicPlaces = {};
+            //intPlaces = [];
+            //topPlaces = [];
 
 	        	obtenidos = obtenidos+50;
 	        	total = results.totalResults;
@@ -130,11 +131,7 @@ exports.explore = function(req, res){
 
 	        	});
 
-            _.forEach(dicPlaces, function(val, i){
-              intPlaces.push(i);
-            });
-            intPlaces.sort();
-            intPlaces.reverse();
+
 
 	        	callback();
 
@@ -145,17 +142,45 @@ exports.explore = function(req, res){
 	    function (err) {
 	        
 	        //var orderPlaces = _.sortBy(places, 'stats.checkinsCount');
-        _.forEach(intPlaces, function(i){
-          _.forEach(dicPlaces[i], function(val, key){
-            topPlaces.push(val);  
-            console.log(val.venue.id);
-          });
-        }); 
+            _.forEach(dicPlaces, function(val, i){
+              intPlaces.push(+i);
+            });
 
-        topPlaces = topPlaces.slice(0,5);
+            function sortNumber(a,b) {
+              return a - b;
+            }
+            intPlaces.sort(sortNumber);
+            intPlaces.reverse();
+
+            _.forEach(intPlaces, function(i){
+              _.forEach(dicPlaces[''+i], function(val, key){
+                topPlaces.push(val);  
+              });
+            }); 
+
+            topPlaces = topPlaces.slice(0,5);
+            var dictArray = {};
+            _.forEach(topPlaces, function(val, i){
+              dictArray[val.venue.id] = i;
+            });
+
+            async.each(topPlaces, function( venue, callback) {
+              venue = venue.venue;
+              foursquare.getVenue(venue.id, '', function(err, infoVenue){
+                foursquare.getPhotos(venue.id, '',{ 'limit': 100 }, '', function(err, resultfotos){
+                  infoVenue['venue']['fotos'] = resultfotos.photos.items;
+                  //topPlacesInfo.push(infoVenue);
+                  topPlacesInfo[dictArray[venue.id]] = infoVenue;
+                  callback();
+                });
+              });
+
+            }, function(err){
 
 
-	      res.jsonp({'heatMap': placesData, 'places':places});
+	        res.jsonp({'heatMap': placesData, 'places':places, 'topPlaces': topPlacesInfo});
+		    
+		});
 	    }
 	);
 
