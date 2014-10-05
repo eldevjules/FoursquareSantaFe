@@ -3,8 +3,8 @@ google.maps.event.addDomListener(window, 'load', init);
 Mustache.tags = ['{[{', '}]}'];
 
 var map, pointarray, heatmap, gradient, trendings, markersTrending;
-//var centroSantaFe = new google.maps.LatLng(19.408038,-99.172457);
-var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
+var centroSantaFe = new google.maps.LatLng(19.408038,-99.172457);
+//var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
 
 var zoomInicial = 16;
 var zoomInPlace = 18;
@@ -219,15 +219,15 @@ function explore(){
 
         //Trendings
         $.get( "/trending/", function( response ) {
-            console.log(response);
 
             //Limpiando trendings anteriores
             trendings = [];
             markersTrending = [];
 
             //Recorremos los lugares trending
-            $.each(response.places, function( index, place ) {
+            $.each(response.places, function( index, element ) {
                 
+                var place = element.venue;
                 place['item'] = index+1;
                 trendings.push(place);
 
@@ -289,8 +289,6 @@ function explore(){
                     place['clase'] = "color-5";
                 }
 
-                //imageUrl = '/img/pines/general.png';
-
                 //Creando el markerImage
                 var markerImage = new google.maps.MarkerImage(imageUrl, new google.maps.Size(47, 80));
                 //Punto donde va
@@ -350,7 +348,9 @@ function navegaSobreTrending(n){
       map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
 
       //Mostramos la info del lugar
-      showPlace(trendN);
+      var template = $('#templateFlashPlace').html();
+      var rendered = Mustache.render(template, {place: trendN});
+      $('#top5Places').html(rendered);
 
       //Anima este marker
       markerN = markersTrending[n];
@@ -363,6 +363,11 @@ function navegaSobreTrending(n){
       navegaSobreTrending(newN);
 
     }else{
+
+        var template = $('#templateSinglePlace').html();
+        var rendered = Mustache.render(template, {places: trendings});
+        $('#top5Places').html(rendered);
+
       //Cuando ya termino, se centra en santa fe
       map.panTo(centroSantaFe);
 

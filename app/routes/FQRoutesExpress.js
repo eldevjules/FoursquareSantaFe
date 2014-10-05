@@ -14,8 +14,11 @@ module.exports = function(app) {
     //Venues
     app.get('/explore/', FQ.explore);
     app.get('/trending/', FQ.trending);
+    app.get('/here/', FQ.here);
+    app.get('/venue/', FQ.venue);
 
     //Tops
      app.get('/kamikazes/', FQ.kamikazes);
+
 
 };

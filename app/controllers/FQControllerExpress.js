@@ -96,8 +96,8 @@ exports.explore = function(req, res){
 	async.doWhilst(
 	    function (callback) {
 	        
-	        //foursquare.explore('-37.8144346','144.9619422', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
-	        foursquare.explore('19.3649138','-99.268232', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
+	        foursquare.explore('19.408038','-99.172457', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
+	        //foursquare.explore('19.3649138','-99.268232', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
 
 	        	obtenidos = obtenidos+50;
 	        	total = results.totalResults;
@@ -135,14 +135,47 @@ exports.explore = function(req, res){
 exports.trending = function(req, res){
 
 	var places = [];
+	foursquare.getTrending('19.408038','-99.172457', { 'radius': 1500, 'limit':5, }, '', function(err, results){
+	//foursquare.getTrending('19.3649138','-99.268232', { 'radius': 1500, 'limit':5, }, '', function(err, results){
 
-	//foursquare.getTrending('19.408038','-99.172457', { 'radius': 1500, 'limit':5, }, '', function(err, results){
-	foursquare.getTrending('19.3649138','-99.268232', { 'radius': 1500, 'limit':5, }, '', function(err, results){
+    	async.each(results.venues, function( venue, callback) {
 
-    	res.jsonp({'places': results.venues});
+    		foursquare.getVenue(venue.id, '', function(err, infoVenue){
+				//console.log(results);
+				places.push(infoVenue);
+		    	callback();
+
+			});
+		  
+		}, function(err){
+		    
+		      res.jsonp({'places': places});
+		    
+		});
 
 	});
 
+}
+
+
+exports.here = function(req, res){
+
+	foursquare.getHereNow('4c462fb32dcd9c7448de0a7b', { }, '', function(err, results){
+
+		//console.log(results);
+    	res.jsonp({'checkins': results});
+
+	});
+}
+
+exports.venue = function(req, res){
+
+	foursquare.getVenue('4c462fb32dcd9c7448de0a7b', '', function(err, results){
+
+		console.log(results);
+    	res.jsonp({'checkins': results});
+
+	});
 }
 
 exports.kamikazes = function(req, res){
