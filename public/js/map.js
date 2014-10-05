@@ -355,6 +355,10 @@ function navegaSobreTrending(n){
       var rendered = Mustache.render(template, {place: trendN});
       $('#showPlace').html(rendered);
       $(".placeContainer").css("width", fullWidth);
+      $(".placeContainer").animate({bottom:'10px'}, 1000);
+      setTimeout(function(){
+            $(".placeContainer").animate({bottom:'-550px'}, 1000);
+        }, 3000);
 
       //Anima este marker
       markerN = markersTrending[n];
