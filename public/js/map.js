@@ -166,15 +166,15 @@ function explore(){
                 var imageUrl = '';  
                 if(place.categories[0].name == "Salad Place"){
                     imageUrl = '/img/pines/ensalada.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-13";
                 }
                 if(place.categories[0].name == "Gym / Fitness Center"){
                     imageUrl = '/img/pines/gym.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-8";
                 }
                 if(place.categories[0].name == "Bar" || place.categories[0].name == "Hookah Bar"){
                     imageUrl = '/img/pines/bar.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-7";
                 }
                 if(place.categories[0].name == "Café"){
                     imageUrl = '/img/pines/cafe.png';
@@ -182,41 +182,41 @@ function explore(){
                 }
                 if(place.categories[0].name == "Food"){
                     imageUrl = '/img/pines/comida.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-10";
                 }
                 if(place.categories[0].name == "Arts & Entertainment" || 
                     place.categories[0].name == "Indie Movie Theater" ||
                     place.categories[0].name == "Multiplex"){
                     imageUrl = '/img/pines/entretenimiento.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-12";
                 }
                 if(place.categories[0].name == "Hotel"){
                     imageUrl = '/img/pines/hotel.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-9";
                 }
                 if(place.categories[0].name == "Nightlife Spot"){
                     imageUrl = '/img/pines/noche.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-2";
                 }
                 if(place.categories[0].name == "Tea Room"){
                     imageUrl = '/img/pines/te.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-6";
                 }
                 if(place.categories[0].name == "Shop & Service" || place.categories[0].name == "Mall"){
                     imageUrl = '/img/pines/tienda.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-11";
                 }
                 if(place.categories[0].name == "College & University"){
                     imageUrl = '/img/pines/universidad.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-4";
                 }
                 if(place.categories[0].name == "Professional & Other Places"){
                     imageUrl = '/img/pines/trabajo.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-3";
                 }
                 if(imageUrl == ''){
                     imageUrl = '/img/pines/general.png';
-                    place['clase'] = "color-1";
+                    place['clase'] = "color-5";
                 }
 
                 //imageUrl = '/img/pines/general.png';
