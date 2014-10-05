@@ -3,7 +3,9 @@ google.maps.event.addDomListener(window, 'load', init);
 Mustache.tags = ['{[{', '}]}'];
 
 var map, pointarray, heatmap, gradient, trendings, markersTrending;
+//var centroSantaFe = new google.maps.LatLng(19.408038,-99.172457);
 var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
+
 var zoomInicial = 16;
 var zoomInPlace = 18;
 var diff_height = 0;
@@ -101,6 +103,61 @@ function init() {
         'rgba(255, 0, 0, 1)'
     ]
 
+    //Poniendo marcadores default
+    
+    //Kamikaze
+    var markerImagekamikaze = new google.maps.MarkerImage('/img/pines/kamikaze.png', new google.maps.Size(80, 80));
+    var kamikazelab = new google.maps.LatLng(19.359783,-99.278924);
+    //Objeto del marcador
+    var marker = new google.maps.Marker({
+        position: kamikazelab,
+        draggable: false,
+        icon: markerImagekamikaze,
+        map: map,
+    });
+    //Ibero
+    var markerImageibero = new google.maps.MarkerImage('/img/pines/ibero.png', new google.maps.Size(80, 80));
+    var ibero = new google.maps.LatLng(19.3702546,-99.2645616);
+    //Objeto del marcador
+    var marker = new google.maps.Marker({
+        position: ibero,
+        draggable: false,
+        icon: markerImageibero,
+        map: map,
+    });
+    //Televisa
+    var markerImagetelevisa = new google.maps.MarkerImage('/img/pines/televisa.png', new google.maps.Size(80, 80));
+    var televisa = new google.maps.LatLng(19.3739423,-99.2514468);
+    //Objeto del marcador
+    var marker = new google.maps.Marker({
+        position: televisa,
+        draggable: false,
+        icon: markerImagetelevisa,
+        map: map,
+    });
+    //Banamex
+    var markerImagebanamex = new google.maps.MarkerImage('/img/pines/banamex.png', new google.maps.Size(80, 80));
+    var banamex = new google.maps.LatLng(19.3761487,-99.2565859);
+    //Objeto del marcador
+    var marker = new google.maps.Marker({
+        position: banamex,
+        draggable: false,
+        icon: markerImagebanamex,
+        map: map,
+    });
+    //Tec
+    var markerImagetec = new google.maps.MarkerImage('/img/pines/tec.png', new google.maps.Size(80, 80));
+    var tec = new google.maps.LatLng(19.3569173,-99.2686773);
+    //Objeto del marcador
+    var marker = new google.maps.Marker({
+        position: tec,
+        draggable: false,
+        icon: markerImagetec,
+        map: map,
+    });
+
+
+
     //Primer consulta
     explore();
 
@@ -194,7 +251,8 @@ function explore(){
                     imageUrl = '/img/pines/hotel.png';
                     place['clase'] = "color-1";
                 }
-                if(place.categories[0].name == "Nightlife Spot"){
+                if(place.categories[0].name == "Nightlife Spot" ||
+                    place.categories[0].name == "Nightclub"){
                     imageUrl = '/img/pines/noche.png';
                     place['clase'] = "color-1";
                 }
