@@ -225,14 +225,13 @@ function explore(){
 
 
         //Trendings
-        $.get( "/trending/", function( response ) {
 
             //Limpiando trendings anteriores
             trendings = [];
             markersTrending = [];
 
             //Recorremos los lugares trending
-            $.each(response.places, function( index, element ) {
+            $.each(data.topPlaces, function( index, element ) {
                 
                 var place = element.venue;
                 place['item'] = index+1;
@@ -333,7 +332,6 @@ function explore(){
             $('#top5Places').html(rendered);
             navegaSobreTrending(0);
 
-        });
 
 
     });

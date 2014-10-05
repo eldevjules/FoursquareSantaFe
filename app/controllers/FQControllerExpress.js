@@ -86,19 +86,26 @@ exports.callback = function(req, res){
 
 exports.explore = function(req, res){
 
-	var obtenidos = 0
-	var total = 0;
-	var places = [];
+	var obtenidos = 0,
+	places = [],
+	placesData = [],
+  dicPlaces = {},
+  intPlaces = [],
+  topPlaces = [],
+  topPlacesInfo = [],
+	total = 0;
 
-	var placesData = [];
 
 
 	async.doWhilst(
 	    function (callback) {
 	        
-	        // foursquare.explore('40.7504877','-73.9839238', '', { 'radius': 3000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
-	        // foursquare.explore('51.5065757','-0.0907085', '', { 'radius': 3000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
+	        // foursquare.explore('19.408038','-99.172457', '', { 'radius': 2000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
 	        foursquare.explore('19.3649138','-99.268232', '', { 'radius': 3000, 'limit':50, 'offset':obtenidos }, '', function(err, results){
+
+            //dicPlaces = {};
+            //intPlaces = [];
+            //topPlaces = [];
 
 	        	obtenidos = obtenidos+50;
 	        	total = results.totalResults;
@@ -111,11 +118,20 @@ exports.explore = function(req, res){
 
 	        		//Preguntamos cuanta gente hay aqui en este momento
 	        		//console.log(place.venue.hereNow.count);
-	        		for(var i=0; i<place.venue.hereNow.count; i++){
+              var totalVenue = place.venue.hereNow.count;
+              if(typeof dicPlaces[totalVenue] === 'undefined'){
+                dicPlaces[totalVenue] = [];
+              }
+
+              dicPlaces[totalVenue].push(place);
+
+	        		for(var i=0; i<totalVenue; i++){
 	        			placesData.push({ 'lat':place.venue.location.lat, 'lng':place.venue.location.lng });
 	        		}
 
 	        	});
+
+
 
 	        	callback();
 
@@ -126,8 +142,45 @@ exports.explore = function(req, res){
 	    function (err) {
 	        
 	        //var orderPlaces = _.sortBy(places, 'stats.checkinsCount');
-	        
-	        res.jsonp({'heatMap': placesData, 'places':places});
+            _.forEach(dicPlaces, function(val, i){
+              intPlaces.push(+i);
+            });
+
+            function sortNumber(a,b) {
+              return a - b;
+            }
+            intPlaces.sort(sortNumber);
+            intPlaces.reverse();
+
+            _.forEach(intPlaces, function(i){
+              _.forEach(dicPlaces[''+i], function(val, key){
+                topPlaces.push(val);  
+              });
+            }); 
+
+            topPlaces = topPlaces.slice(0,5);
+            var dictArray = {};
+            _.forEach(topPlaces, function(val, i){
+              dictArray[val.venue.id] = i;
+            });
+
+            async.each(topPlaces, function( venue, callback) {
+              venue = venue.venue;
+              foursquare.getVenue(venue.id, '', function(err, infoVenue){
+                foursquare.getPhotos(venue.id, '',{ 'limit': 100 }, '', function(err, resultfotos){
+                  infoVenue['venue']['fotos'] = resultfotos.photos.items;
+                  //topPlacesInfo.push(infoVenue);
+                  topPlacesInfo[dictArray[venue.id]] = infoVenue;
+                  callback();
+                });
+              });
+
+            }, function(err){
+
+
+	        res.jsonp({'heatMap': placesData, 'places':places, 'topPlaces': topPlacesInfo});
+		    
+		});
 	    }
 	);
 
