@@ -118,7 +118,7 @@
         </script>
 
         <script id="templateFlashPlace" type="x-tmpl-mustache">
-            <div class="placeContainer color-1">
+            <div class="placeContainer {[{place.clase}]}">
                 <div class="header">
                     <div class="icon">
                         <div class="triangle">
@@ -126,9 +126,9 @@
                         </div>
                     </div>
 
-                    <div class="title"><span>#3</span> Sliders Santa Fe</div>
+                    <div class="title"><span>#{[{place.item}]}</span> {[{place.name}]}</div>
 
-                    <div class="address">Juan Salvador Agraz # 45, Santa Fe, México D.F. · 503880134</div>
+                    <div class="address">{[{place.location.address}]} · {[{place.contact.formattedPhone}]}</div>
                 </div>
 
                 <div class="contentInfoPlace">
@@ -136,29 +136,29 @@
                         <div class="title">DESCRIPCIÓN</div>
 
                         <div class="contentDescription">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dictum posuere eros quis tincidunt. Phasellus sit amet viverra eros. Maecenas sed libero id lorem luctus interdum. Nullam posuere tincidunt mattis. Phasellus condimentum semper sem, ut cursus urna varius sed. Suspendisse.
+                            {[{place.description}]}
                         </div>
                     </div>
 
                     <div class="circles">
                         <div class="circle likes">
                             <div class="img-circle"><img src="../img/like.png" alt="avatar"></div>
-                            <div class="text">23,486</div>
+                            <div class="text">{[{place.likes.count}]}</div>
                         </div>
 
                         <div class="circle score">
                             <div class="img-circle"><img src="../img/rating.png" alt="avatar"></div>
-                            <div class="text">8.3</div>
+                            <div class="text">{[{place.rating}]}</div>
                         </div>
 
                         <div class="circle price">
                             <div class="img-circle"><img src="../img/herenow.png" alt="avatar"></div>
-                            <div class="text">200</div>
+                            <div class="text">{[{place.hereNow.count}]}</div>
                         </div>
 
                         <div class="circle checkins">
                             <div class="img-circle"><img src="../img/checkin.png" alt="avatar"></div>
-                            <div class="text">120,456</div>
+                            <div class="text">{[{place.stats.checkinsCount}]}</div>
                         </div>
 
                         <div class="circle mayor">
@@ -170,36 +170,13 @@
                 
                 <div class="gallery">
                     <div class="galleryContainer">
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
+                        {[{#place.photos.groups}]}
+                            {[{#items}]}
+                            <div class="picture">
+                                <div class="img-picture"><img src="{[{prefix}]}155{[{suffix}]}" alt="avatar"></div>
+                            </div>
+                            {[{/items}]}
+                        {[{/place.photos.groups}]}
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ Mustache.tags = ['{[{', '}]}'];
 
 var map, pointarray, heatmap, gradient, trendings, markersTrending;
 var centroSantaFe = new google.maps.LatLng(19.408038,-99.172457);
+var fullWidth = $( window ).width() -300;
 //var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
 
 var zoomInicial = 16;
@@ -87,20 +88,20 @@ function init() {
     // Create the Google Map using out element and options defined above
     map = new google.maps.Map(mapElement, mapOptions);
     gradient = [
-        'rgba(0, 255, 255, 0)',
-        'rgba(0, 255, 255, 1)',
-        'rgba(0, 191, 255, 1)',
-        'rgba(0, 127, 255, 1)',
-        'rgba(0, 63, 255, 1)',
-        'rgba(0, 0, 255, 1)',
-        'rgba(0, 0, 223, 1)',
-        'rgba(0, 0, 191, 1)',
-        'rgba(0, 0, 159, 1)',
-        'rgba(0, 0, 127, 1)',
-        'rgba(63, 0, 91, 1)',
-        'rgba(127, 0, 63, 1)',
-        'rgba(191, 0, 31, 1)',
-        'rgba(255, 0, 0, 1)'
+       'rgba(0, 255, 255, 0)',
+       'rgba(54, 196, 232, 1)',
+       'rgba(54, 152, 232, 1)',
+       'rgba(54, 107, 232, 1)',
+       'rgba(54, 62, 232, 1)',
+       'rgba(90, 54, 232, 1)',
+       'rgba(83, 52, 209, 1)',
+       'rgba(76, 48, 184, 1)',
+       'rgba(69, 46, 159, 1)',
+       'rgba(64, 54, 135, 1)',
+       'rgba(101, 43, 108, 1)',
+       'rgba(135, 45, 71, 1)',
+       'rgba(184, 54, 48, 1)',
+       'rgba(232, 90, 54, 1)'
     ]
 
     //Poniendo marcadores default
@@ -348,9 +349,12 @@ function navegaSobreTrending(n){
       map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
 
       //Mostramos la info del lugar
+      console.log("el actual trend");
+      console.log(trendN);
       var template = $('#templateFlashPlace').html();
       var rendered = Mustache.render(template, {place: trendN});
       $('#showPlace').html(rendered);
+      $(".placeContainer").css("width", fullWidth);
 
       //Anima este marker
       markerN = markersTrending[n];
