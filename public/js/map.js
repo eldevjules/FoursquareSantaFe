@@ -5,6 +5,7 @@ var map, pointarray, heatmap, gradient, trendings, markersTrending;
 var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
 var zoomInicial = 16;
 var zoomInPlace = 18;
+var diff_height = 0;
 
 function init() {
     // Basic options for a simple Google Map
@@ -183,6 +184,11 @@ function explore(){
             });
 
             //Una vez que los markes trendings estan puestos hay que navegar sobre ellos
+            var bounds = map.getBounds(),
+            ne = bounds.getNorthEast(),
+            sw = bounds.getSouthWest();
+
+            diff_height = ne.lat() - sw.lat();
             navegaSobreTrending(0);
 
         });
@@ -194,49 +200,46 @@ function explore(){
 
 
 function navegaSobreTrending(n){
-    setTimeout(function(){
-        
-        trendN = trendings[n];
+  setTimeout(function(){
+    trendN = trendings[n];
 
-        var newN = n + 1;
-        if(newN <= trendings.length){
-            
-            //Desplaza el mapa
-            map.panTo(new google.maps.LatLng(trendN.location.lat,trendN.location.lng));
-            
-            if(n == 0){
-                nAnterior = trendings.length-1;
-            }else{
-                nAnterior = n-1;
-            }
-            console.log("nAnterior: ");
-            console.log(nAnterior);
+    var newN = n + 1;
+    if(newN <= trendings.length){
 
-            //Quita animate del marker anterior
-            markerN = markersTrending[nAnterior];
-            markerN.setAnimation(null);
-            //Anima este marker
-            markerN = markersTrending[n];
-            markerN.setAnimation(google.maps.Animation.BOUNCE);
+      //Desplaza el mapa
+      map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
 
-            if(newN == 1){
-                //map.setZoom(zoomInPlace);
-            }
+      if(n == 0){
+        nAnterior = trendings.length-1;
+      }else{
+        nAnterior = n-1;
+      }
 
-            navegaSobreTrending(newN);
+      //Quita animate del marker anterior
+      markerN = markersTrending[nAnterior];
+      markerN.setAnimation(null);
+      //Anima este marker
+      markerN = markersTrending[n];
+      markerN.setAnimation(google.maps.Animation.BOUNCE);
 
-        }else{
-            //Cuando ya termino, se centra en santa fe
-            map.panTo(centroSantaFe);
+      if(newN == 1){
+        //map.setZoom(zoomInPlace);
+      }
 
-            //Quitamos animacion del ultimo pin
-            nAnterior = trendings.length-1;
-            markerN = markersTrending[nAnterior];
-            markerN.setAnimation(null);
+      navegaSobreTrending(newN);
 
-            //map.setZoom(zoomInicial);
-            navegaSobreTrending(0);
-        }
-    },5000);
+    }else{
+      //Cuando ya termino, se centra en santa fe
+      map.panTo(centroSantaFe);
+
+      //Quitamos animacion del ultimo pin
+      nAnterior = trendings.length-1;
+      markerN = markersTrending[nAnterior];
+      markerN.setAnimation(null);
+
+      //map.setZoom(zoomInicial);
+      navegaSobreTrending(0);
+    }
+  },5000);
 }
 
