@@ -141,10 +141,15 @@ exports.trending = function(req, res){
     	async.each(results.venues, function( venue, callback) {
 
     		foursquare.getVenue(venue.id, '', function(err, infoVenue){
-				//console.log(results);
-				places.push(infoVenue);
-		    	callback();
 
+    			foursquare.getPhotos(venue.id, '',{ 'limit': 50 }, '', function(err, resultfotos){
+
+    				var sampleFotos = _.sample(resultfotos.photos.items, 10);
+
+					infoVenue['venue']['fotos'] = sampleFotos;
+					places.push(infoVenue);
+			    	callback();
+		    	});
 			});
 		  
 		}, function(err){

@@ -306,14 +306,13 @@ function explore(){
 
             });
 
+            console.log(trendings);
+
             //Una vez que los markes trendings estan puestos hay que navegar sobre ellos
             var bounds = map.getBounds(),
             ne = bounds.getNorthEast(),
             sw = bounds.getSouthWest();
             diff_height = ne.lat() - sw.lat();
-
-
-            console.log(trendings);
 
             var template = $('#templateSinglePlace').html();
             var rendered = Mustache.render(template, {places: trendings});
@@ -349,8 +348,6 @@ function navegaSobreTrending(n){
       map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
 
       //Mostramos la info del lugar
-      console.log("el actual trend");
-      console.log(trendN);
       var template = $('#templateFlashPlace').html();
       var rendered = Mustache.render(template, {place: trendN});
       $('#showPlace').html(rendered);
@@ -386,7 +383,4 @@ function navegaSobreTrending(n){
   },5000);
 }
 
-function showPlace(place){
-    console.log(place);
-}
 
