@@ -15,4 +15,7 @@ module.exports = function(app) {
     app.get('/explore/', FQ.explore);
     app.get('/trending/', FQ.trending);
 
+    //Tops
+     app.get('/kamikazes/', FQ.kamikazes);
+
 };
