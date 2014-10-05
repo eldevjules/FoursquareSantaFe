@@ -217,7 +217,7 @@ function explore(){
         });
         heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
 
-        heatmap.set('radius', heatmap.get('radius') ? null : 10);
+        heatmap.set('radius', heatmap.get('radius') ? null : 20);
         
         heatmap.set('opacity', heatmap.get('opacity') ? null : 0.8);
 
