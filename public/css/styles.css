@@ -1,3 +1,31 @@
+/* @font-face */
+@font-face {
+  font-family: 'Benton';
+  src: url('../fonts/BentonSans/bentonsansregular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BentonBlack';
+  src: url('../fonts/BentonSans/bentonsansblack.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BentonBold';
+  src: url('../fonts/BentonSans/bentonsansbold.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BentonLight';
+  src: url('../fonts/BentonSans/bentonsanslight.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: 'Benton', sans-serif;
+}
 .map-container {
   float: left;
   margin: 10px;
@@ -33,20 +61,97 @@
   border-right: 2px solid #d5d5d5;
   background-color: #f4f4f4;
 }
-.map-container .top5places .singlePlace:first-child {
-  -webkit-border-bottom-left-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  border-bottom-left-radius: 5px;
-}
-.map-container .top5places .singlePlace:last-child {
-  border-right: 2px solid #f4f4f4;
-  -webkit-border-bottom-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  border-bottom-right-radius: 5px;
-}
 .map-container .top5places .singlePlace .color-line {
-  height: 2px;
-  background-color: red;
+  height: 5px;
+}
+.map-container .top5places .singlePlace .infoPlace {
+  margin-top: 35px;
+  margin-left: 10px;
+  font-size: 18px;
+}
+.map-container .top5places .singlePlace .infoPlace .circle {
+  float: left;
+  width: 22px;
+  height: 22px;
+  border-radius: 25px;
+}
+.map-container .top5places .singlePlace .infoPlace .circle .number {
+  position: relative;
+  top: 2px;
+  text-align: center;
+  font-family: 'BentonBlack', sans-serif;
+}
+.map-container .top5places .singlePlace .infoPlace .name {
+  float: left;
+  width: 160px;
+  margin-top: 5px;
+  margin-left: 8px;
+  font-size: 19px;
+  font-family: 'BentonBlack', sans-serif;
+}
+.map-container .top5places .singlePlace .infoPrice {
+  clear: both;
+  margin-left: 10px;
+  padding-top: 10px;
+  font-size: 16px;
+}
+.map-container .top5places .singlePlace .infoPrice .dollarSigns {
+  float: left;
+  font-family: 'BentonBlack', sans-serif;
+}
+.map-container .top5places .singlePlace .infoPrice .typePlace {
+  float: left;
+  width: 140px;
+  font-family: 'BentonLight', sans-serif;
+}
+.map-container .top5places .singlePlace .infoPrice .typePlace span {
+  position: relative;
+  top: -1px;
+  margin-left: 4px;
+  margin-right: 2px;
+  font-family: 'Benton', sans-serif;
+}
+.map-container .top5places .singlePlace .checkinPlace {
+  clear: both;
+  margin-left: 10px;
+  padding-top: 10px;
+  font-size: 16px;
+}
+.map-container .top5places .singlePlace .checkinPlace .icon {
+  float: left;
+  position: relative;
+  top: -2px;
+  margin-right: 6px;
+}
+.map-container .top5places .singlePlace .checkinPlace .icon img {
+  height: 18px;
+}
+.map-container .top5places .singlePlace .checkinPlace .number {
+  float: left;
+  font-family: 'BentonBlack', sans-serif;
+}
+.map-container .top5places .singlePlace .checkinPlace .text {
+  float: left;
+  margin-left: 6px;
+  font-family: 'BentonLight', sans-serif;
+}
+.map-container .top5places .singlePlace.color-1 {
+  color: #f2542f;
+}
+.map-container .top5places .singlePlace.color-1 .color-line {
+  background-color: #f2542f;
+}
+.map-container .top5places .singlePlace.color-1 .infoPlace .circle {
+  border: 2px solid #f2542f;
+}
+.map-container .top5places .singlePlace.color-2 {
+  color: #f4b41e;
+}
+.map-container .top5places .singlePlace.color-2 .color-line {
+  background-color: #f4b41e;
+}
+.map-container .top5places .singlePlace.color-2 .infoPlace .circle {
+  border: 2px solid #f4b41e;
 }
 .leaderboards {
   float: left;
