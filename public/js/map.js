@@ -187,47 +187,55 @@ function explore(){
 
 
 function navegaSobreTrending(n){
-    setTimeout(function(){
-        
-        trendN = trendings[n];
+  if(n == 0){
+    animatePin(n);
+    return;
+  }
 
-        var newN = n + 1;
-        if(newN <= trendings.length){
-            
-            //Desplaza el mapa
-            map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
+  setTimeout(function(){
+    animatePin(n);
+  },5000);
+}
 
-            if(n == 0){
-                nAnterior = trendings.length-1;
-            }else{
-                nAnterior = n-1;
-            }
+function animatePin(n){
+  trendN = trendings[n];
 
-            //Quita animate del marker anterior
-            markerN = markersTrending[nAnterior];
-            markerN.setAnimation(null);
-            //Anima este marker
-            markerN = markersTrending[n];
-            markerN.setAnimation(google.maps.Animation.BOUNCE);
+  var newN = n + 1;
+  if(newN <= trendings.length){
 
-            if(newN == 1){
-                //map.setZoom(zoomInPlace);
-            }
+    //Desplaza el mapa
+    map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
 
-            navegaSobreTrending(newN);
+    if(n == 0){
+      nAnterior = trendings.length-1;
+    }else{
+      nAnterior = n-1;
+    }
 
-        }else{
-            //Cuando ya termino, se centra en santa fe
-            map.panTo(centroSantaFe);
+    //Quita animate del marker anterior
+    markerN = markersTrending[nAnterior];
+    markerN.setAnimation(null);
+    //Anima este marker
+    markerN = markersTrending[n];
+    markerN.setAnimation(google.maps.Animation.BOUNCE);
 
-            //Quitamos animacion del ultimo pin
-            nAnterior = trendings.length-1;
-            markerN = markersTrending[nAnterior];
-            markerN.setAnimation(null);
+    if(newN == 1){
+      //map.setZoom(zoomInPlace);
+    }
 
-            //map.setZoom(zoomInicial);
-            navegaSobreTrending(0);
-        }
-    },5000);
+    navegaSobreTrending(newN);
+
+  }else{
+    //Cuando ya termino, se centra en santa fe
+    map.panTo(centroSantaFe);
+
+    //Quitamos animacion del ultimo pin
+    nAnterior = trendings.length-1;
+    markerN = markersTrending[nAnterior];
+    markerN.setAnimation(null);
+
+    //map.setZoom(zoomInicial);
+    navegaSobreTrending(0);
+  }
 }
 
