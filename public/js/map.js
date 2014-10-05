@@ -127,7 +127,7 @@ function init() {
     });
     //Televisa
     var markerImagetelevisa = new google.maps.MarkerImage('/img/pines/televisa.png', new google.maps.Size(80, 80));
-    var televisa = new google.maps.LatLng(19.3739423,-99.2514468);
+    var televisa = new google.maps.LatLng(19.3755553,-99.2569681);
     //Objeto del marcador
     var marker = new google.maps.Marker({
         position: televisa,
@@ -137,7 +137,7 @@ function init() {
     });
     //Banamex
     var markerImagebanamex = new google.maps.MarkerImage('/img/pines/banamex.png', new google.maps.Size(80, 80));
-    var banamex = new google.maps.LatLng(19.3761487,-99.2565859);
+    var banamex = new google.maps.LatLng(19.3753326,-99.2592855);
     //Objeto del marcador
     var marker = new google.maps.Marker({
         position: banamex,
@@ -147,12 +147,22 @@ function init() {
     });
     //Tec
     var markerImagetec = new google.maps.MarkerImage('/img/pines/tec.png', new google.maps.Size(80, 80));
-    var tec = new google.maps.LatLng(19.3569173,-99.2686773);
+    var tec = new google.maps.LatLng(19.3596064,-99.2613108);
     //Objeto del marcador
     var marker = new google.maps.Marker({
         position: tec,
         draggable: false,
         icon: markerImagetec,
+        map: map,
+    });
+    //Chrysler
+    var markerImagechrysler = new google.maps.MarkerImage('/img/pines/chrysler.png', new google.maps.Size(80, 80));
+    var chrysler = new google.maps.LatLng(19.3568705,-99.2746439);
+    //Objeto del marcador
+    var marker = new google.maps.Marker({
+        position: chrysler,
+        draggable: false,
+        icon: markerImagechrysler,
         map: map,
     });
 
@@ -179,8 +189,10 @@ function init() {
 function kamikazes(){
 
     //Top de kamikazes
-    $.get( "/kamikazes/", function( data ) {
-        console.log(data);
+    $.get("/kamikazes/", function( data ){
+      var template = $('#templateSingleUser').html();
+      var rendered = Mustache.render(template, {tops: data.kamikazes});
+      $('#top-cheks').html(rendered);
     });
 
 }
@@ -306,7 +318,6 @@ function explore(){
 
             var template = $('#templateSinglePlace').html();
             var rendered = Mustache.render(template, {places: trendings});
-            console.log(rendered);
             $('#top5Places').html(rendered);
             navegaSobreTrending(0);
 
