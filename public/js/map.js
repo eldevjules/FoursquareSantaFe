@@ -350,7 +350,7 @@ function navegaSobreTrending(n){
       //Mostramos la info del lugar
       var template = $('#templateFlashPlace').html();
       var rendered = Mustache.render(template, {place: trendN});
-      $('#top5Places').html(rendered);
+      $('#showPlace').html(rendered);
 
       //Anima este marker
       markerN = markersTrending[n];
@@ -366,7 +366,7 @@ function navegaSobreTrending(n){
 
         var template = $('#templateSinglePlace').html();
         var rendered = Mustache.render(template, {places: trendings});
-        $('#top5Places').html(rendered);
+        $('#showPlace').html('');
 
       //Cuando ya termino, se centra en santa fe
       map.panTo(centroSantaFe);

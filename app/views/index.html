@@ -27,90 +27,8 @@
             <!-- close top5places -->
 
             <!-- placeContainer -->
-            <div class="placeContainer color-1">
-                <div class="header">
-                    <div class="icon">
-                        <div class="triangle">
-                            <img src="../img/NI-avatar.jpg" alt="avatar">
-                        </div>
-                    </div>
-
-                    <div class="title"><span>#3</span> Sliders Santa Fe</div>
-
-                    <div class="address">Juan Salvador Agraz # 45, Santa Fe, México D.F. · 503880134</div>
-                </div>
-
-                <div class="contentInfoPlace">
-                    <div class="description">
-                        <div class="title">DESCRIPCIÓN</div>
-
-                        <div class="contentDescription">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dictum posuere eros quis tincidunt. Phasellus sit amet viverra eros. Maecenas sed libero id lorem luctus interdum. Nullam posuere tincidunt mattis. Phasellus condimentum semper sem, ut cursus urna varius sed. Suspendisse.
-                        </div>
-                    </div>
-
-                    <div class="circles">
-                        <div class="circle likes">
-                            <div class="img-circle"><img src="../img/like.png" alt="avatar"></div>
-                            <div class="text">23,486</div>
-                        </div>
-
-                        <div class="circle score">
-                            <div class="img-circle"><img src="../img/rating.png" alt="avatar"></div>
-                            <div class="text">8.3</div>
-                        </div>
-
-                        <div class="circle price">
-                            <div class="img-circle"><img src="../img/herenow.png" alt="avatar"></div>
-                            <div class="text">200</div>
-                        </div>
-
-                        <div class="circle checkins">
-                            <div class="img-circle"><img src="../img/checkin.png" alt="avatar"></div>
-                            <div class="text">120,456</div>
-                        </div>
-
-                        <div class="circle mayor">
-                            <div class="img-mayorCrown"><img src="../img/corona.png" alt="avatar"></div>
-                            <div class="img-mayor"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="gallery">
-                    <div class="galleryContainer">
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                        <div class="picture">
-                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
-                        </div>
-                    </div>
-                </div>
+            <div id="showPlace">
+            
             </div>
             <!-- close placeContainer -->
         </div>
@@ -200,7 +118,91 @@
         </script>
 
         <script id="templateFlashPlace" type="x-tmpl-mustache">
-        {[{place.name}]}
+            <div class="placeContainer color-1">
+                <div class="header">
+                    <div class="icon">
+                        <div class="triangle">
+                            <img src="../img/NI-avatar.jpg" alt="avatar">
+                        </div>
+                    </div>
+
+                    <div class="title"><span>#3</span> Sliders Santa Fe</div>
+
+                    <div class="address">Juan Salvador Agraz # 45, Santa Fe, México D.F. · 503880134</div>
+                </div>
+
+                <div class="contentInfoPlace">
+                    <div class="description">
+                        <div class="title">DESCRIPCIÓN</div>
+
+                        <div class="contentDescription">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dictum posuere eros quis tincidunt. Phasellus sit amet viverra eros. Maecenas sed libero id lorem luctus interdum. Nullam posuere tincidunt mattis. Phasellus condimentum semper sem, ut cursus urna varius sed. Suspendisse.
+                        </div>
+                    </div>
+
+                    <div class="circles">
+                        <div class="circle likes">
+                            <div class="img-circle"><img src="../img/like.png" alt="avatar"></div>
+                            <div class="text">23,486</div>
+                        </div>
+
+                        <div class="circle score">
+                            <div class="img-circle"><img src="../img/rating.png" alt="avatar"></div>
+                            <div class="text">8.3</div>
+                        </div>
+
+                        <div class="circle price">
+                            <div class="img-circle"><img src="../img/herenow.png" alt="avatar"></div>
+                            <div class="text">200</div>
+                        </div>
+
+                        <div class="circle checkins">
+                            <div class="img-circle"><img src="../img/checkin.png" alt="avatar"></div>
+                            <div class="text">120,456</div>
+                        </div>
+
+                        <div class="circle mayor">
+                            <div class="img-mayorCrown"><img src="../img/corona.png" alt="avatar"></div>
+                            <div class="img-mayor"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery">
+                    <div class="galleryContainer">
+                        <div class="picture">
+                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
+                        </div>
+                        <div class="picture">
+                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
+                        </div>
+                        <div class="picture">
+                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
+                        </div>
+                        <div class="picture">
+                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
+                        </div>
+                        <div class="picture">
+                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
+                        </div>
+                        <div class="picture">
+                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
+                        </div>
+                        <div class="picture">
+                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
+                        </div>
+                        <div class="picture">
+                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
+                        </div>
+                        <div class="picture">
+                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
+                        </div>
+                        <div class="picture">
+                            <div class="img-picture"><img src="../img/NI-avatar.jpg" alt="avatar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </script>
 
         <!-- JS -->
