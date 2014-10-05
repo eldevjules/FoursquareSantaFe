@@ -142,11 +142,9 @@ exports.trending = function(req, res){
 
     		foursquare.getVenue(venue.id, '', function(err, infoVenue){
 
-    			foursquare.getPhotos(venue.id, '',{ 'limit': 50 }, '', function(err, resultfotos){
+    			foursquare.getPhotos(venue.id, '',{ 'limit': 100 }, '', function(err, resultfotos){
 
-    				var sampleFotos = _.sample(resultfotos.photos.items, 10);
-
-					infoVenue['venue']['fotos'] = sampleFotos;
+					infoVenue['venue']['fotos'] = resultfotos.photos.items;
 					places.push(infoVenue);
 			    	callback();
 		    	});

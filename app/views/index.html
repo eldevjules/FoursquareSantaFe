@@ -125,7 +125,7 @@
                 <div class="header">
                     <div class="icon">
                         <div class="triangle">
-                            <img src="../img/NI-avatar.jpg" alt="avatar">
+                            <img src="{[{place.categoriaIcono}]}" alt="avatar">
                         </div>
                     </div>
 
@@ -136,17 +136,11 @@
 
                 <div class="contentInfoPlace">
                     <div class="description">
-                        <div class="title">FRASES</div>
+                        <div class="title">TIPS</div>
 
                         <div class="contentDescription">
                             <p>
-                                Aqui va la primer frase
-                            </p>
-                            <p>
-                                2da frase
-                            </p>
-                            <p>
-                                Tercera
+                                {[{place.tip}]}
                             </p>
                         </div>
                     </div>
@@ -176,11 +170,11 @@
                 
                 <div class="gallery">
                     <div class="galleryContainer">
-                        {[{#place.fotos}]}
+                        {[{#place.sampleFotos}]}
                             <div class="picture">
                                 <div class="img-picture"><img src="{[{prefix}]}155{[{suffix}]}" alt="avatar"></div>
                             </div>
-                        {[{/place.fotos}]}
+                        {[{/place.sampleFotos}]}
                     </div>
                 </div>
             </div>
@@ -189,6 +183,7 @@
         <!-- JS -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="/js/mustache.js"></script>
+        <script src="/js/lodash.js"></script>
         <script src="/js/map.js"></script>
         <script src="/js/script.js"></script>
 

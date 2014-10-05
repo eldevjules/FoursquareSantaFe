@@ -230,6 +230,7 @@ function explore(){
                 
                 var place = element.venue;
                 place['item'] = index+1;
+                place['categoriaIcono'] = place.categories[0].icon.prefix+'64.png'
                 trendings.push(place);
 
                 //Selección de imagen
@@ -347,6 +348,21 @@ function navegaSobreTrending(n){
       //Desplaza el mapa
       map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
 
+      //Elegimos un tip aleatorio
+      var lostips = trendN.tips.groups[0].items;
+      var nrandom = Math.floor((Math.random() * lostips.length) + 1);
+      var eltip = lostips[nrandom];
+      if(eltip){
+        var textTip = eltip.text;
+      }else{ 
+        var textTip = '...';
+      }
+      trendN['tip'] = textTip;
+
+      //Elegimos fotos aleatorias
+      trendN['sampleFotos'] = _.sample(trendN.fotos, 10);
+
+      console.log(trendN);
       //Mostramos la info del lugar
       var template = $('#templateFlashPlace').html();
       var rendered = Mustache.render(template, {place: trendN});
