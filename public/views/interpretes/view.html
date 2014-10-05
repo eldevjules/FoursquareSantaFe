@@ -1,0 +1,85 @@
+<section data-ng-controller="InterpretesController" data-ng-init="findOne()">
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                <li><a href="#!/interpretes"><i class="fa fa-dashboard"></i> Interpretes</a></li>
+                <li class="active"><i class="fa fa-table"></i>Detalle</li>
+            </ol>
+        </div>
+    </div>
+
+        
+    <div class="row rowInForm">
+        <div class="col-lg-8">
+            <h1>{[{i.name}]}</h1>
+        </div>
+
+        <div class="col-lg-4 btnEditDelete">
+            <a href="#!/interpretes/{[{i._id}]}/edit">
+                <button type="button" class="btn btn-default">Editar</button>
+            </a>
+            <a data-ng-click="remove(i);">
+                <button type="button" class="btn btn-danger">Eliminar</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="row rowInForm">
+        <div class="col-lg-3">
+            <h5>Valores:</h5>
+            <ul class="list-group">
+                <li ng-repeat="v in i.valores" class="list-group-item">
+                  <span>{[{v}]}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-3 inCenter">
+            <h5>Registros entrenados:</h5>
+            <h3>{[{registros.entrenados}]}</h3>
+            <a href="interpretes/csv/{[{i._id}]}">
+                <button type="button" class="btn btn-default btn-lg">Descargar CSV</button>
+            </a>
+        </div>
+        <div class="col-lg-4 inCenter" ng-show="i.status == 'Desconectado'">
+            <h5>Desconectado de Prediction:</h5>
+            <form data-ng-submit="conectar(i)" role="form" id="formInterprete" name="formInterprete" novalidate>
+                <label for="ruta">Ruta del archivo <a href="https://console.developers.google.com/project/480152960989/storage" target="_blank">(subir csv aquí)</a></label>
+                <input type="text" name="ruta" class="form-control" data-ng-model="i.ruta" id="ruta" placeholder="Ejemplo: karmapulse/sentiment.csv" required>
+                <p ng-show="formInterprete.ruta.$invalid && !formInterprete.ruta.$pristine" class="text-danger">Debes poner una ruta.</p>
+                <br>
+                <button type="submit" ng-disabled="formInterprete.$invalid || forminterprete.loading" class="btn btn-primary">Conectar</button>
+            </form>
+            <div ng-show="forminterprete.loading">
+                <h4 class="inCenter"> Conectando...</h4>
+                <div class="progress progress-striped active">
+                  <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    <span class="sr-only">100% Complete</span>
+                  </div>
+                </div>
+            </div>
+            <div class="bs-callout bs-callout-danger" ng-show="forminterprete.hayerror">
+                <h4>No pudimos conectarnos</h4>
+                <p>{[{forminterprete.error}]}</p>
+            </div>
+
+        </div>
+        <div class="col-lg-6" ng-show="i.status != 'Desconectado'">
+            <label for="ruta">Ruta del archivo</label>
+            <p>{[{i.ruta}]}</p>
+            <div ng-hide="!result">
+                <label>Conectado</label>
+                <p>{[{result.created | date:'short'}]}</p>
+                <label>Estado de entrenamiento</label>
+                <p>{[{result.trainingStatus}]}</p>
+                <label>Registros entrenados</label>
+                <p>{[{result.modelInfo.numberInstances}]}</p>
+                <label>Opciones disponibles</label>
+                <p>{[{result.modelInfo.numberLabels}]}</p>
+                <label>Precisión del interprete</label>
+                <p>{[{result.modelInfo.classificationAccuracy}]}</p>
+            </div>
+        </div>
+    </div>
+
+</section>

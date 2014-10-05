@@ -1,0 +1,73 @@
+.map-container {
+    float: left;
+    margin: 10px;
+
+    #map {
+        width: 100%;
+        height: 100%;
+        -webkit-border-top-right-radius: 5px;
+        -webkit-border-top-left-radius: 5px;
+        -moz-border-radius-topright: 5px;
+        -moz-border-radius-topleft: 5px;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+    }
+
+    .top5places {
+        height: 180px;
+        width: 100%;
+        background-color: #d5d5d5;
+        -webkit-border-bottom-right-radius: 5px;
+        -webkit-border-bottom-left-radius: 5px;
+        -moz-border-radius-bottomright: 5px;
+        -moz-border-radius-bottomleft: 5px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        -webkit-box-shadow: 0px 5px 15px 0px rgba(50, 50, 50, 0.3);
+        -moz-box-shadow:    0px 5px 15px 0px rgba(50, 50, 50, 0.3);
+        box-shadow:         0px 5px 15px 0px rgba(50, 50, 50, 0.3);
+
+        .singlePlace {
+            float: left;
+            width: 20%;
+            height: 180px;
+            border-right: 2px solid #d5d5d5;
+            background-color: #f4f4f4;
+            
+            &:first-child {
+                -webkit-border-bottom-left-radius: 5px;
+                -moz-border-radius-bottomleft: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            &:last-child {
+                border-right: 2px solid #f4f4f4;
+                -webkit-border-bottom-right-radius: 5px;
+                -moz-border-radius-bottomright: 5px;
+                border-bottom-right-radius: 5px;
+            }
+
+            .color-line {
+                height: 2px;
+                background-color: red;
+            }
+        }
+    }
+}
+
+.leaderboards {
+    float: left;
+    width: 250px;
+    height: 800px;
+    margin: 10px 0px;
+    background-color: red;
+}
+
+
+
+// -webkit-border-radius: 5px;
+// -moz-border-radius: 5px;
+// border-radius: 5px;
+
+
+

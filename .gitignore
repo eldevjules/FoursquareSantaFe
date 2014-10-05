@@ -1,0 +1,6 @@
+.DS_Store
+*.log
+KarmaPulse.sublime-workspace
+KarmaPulse.sublime-project
+node_modules/
+bower_components/

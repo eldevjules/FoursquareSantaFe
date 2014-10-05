@@ -1,0 +1,63 @@
+<section data-ng-controller="QuerysController" data-ng-init="find()">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                <li class="active"><i class="fa fa-table"></i>Querys</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <p>
+                <a href="#!/querys/create"><button type="button" class="btn btn-primary btn-lg">Crear un Query</button></a>
+            </p>
+        </div>
+        <div class="col-lg-9"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-9">
+          <div class="alert alert-info alert-dismissable">
+              Los querys son útiles para almacenar parámetros con los que posteriormente se realizará una búsqueda                
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <input ng-model="searchText" class="form-control inputSearch" placeholder="Buscar...">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Creado</th>
+                  <th>Palabras</th>
+                  <th>Usuarios</th>
+                  <th>Ubicación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-ng-repeat="query in querys | filter:searchText">
+                  <td><a data-ng-href="#!/querys/{[{query._id}]}">{[{query.name | limitTo:25}]}</a></td>
+                  <td>{[{query.created | date:'short'}]}</td>
+                  <td>{[{query.words | limitTo:2 }]} ...</td>
+                  <td>{[{query.users | limitTo:2 }]} ...</td>
+                  <td>{[{query.lat1 | limitTo:5 }]},{[{query.lng1 | limitTo:5 }]},{[{query.lat2 | limitTo:5 }]},{[{query.lng2 | limitTo:5 }]}</td>
+                </tr>
+                <tr>
+                  <td colspan="5">
+                    <h1 data-ng-hide="!querys || querys.length">No hay querys creados aún. <br>  <a href="#!/querys/create">Crea uno</a>?</h1>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+

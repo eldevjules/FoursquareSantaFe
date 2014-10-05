@@ -1,0 +1,116 @@
+<section data-ng-controller="EntrenamientosController">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                <li class="active"><i class="fa fa-table"></i>Entrenamientos</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Interprete</h3>
+              </div>
+              <div class="panel-body">
+                
+                <div class="btn-group">
+                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    Selecciona uno <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li ng-repeat="interprete in interpretes"><a ng-click="selectInterprete(interprete);">{[{interprete.name}]}</a></li>
+                  </ul>
+                </div>
+
+              </div>
+              <div class="panel-footer" ng-show="currentInterprete">{[{currentInterprete.name}]}</div>
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Búsqueda</h3>
+              </div>
+              <div class="panel-body">
+                
+                <div class="btn-group">
+                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    Selecciona una <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li ng-repeat="busqueda in busquedas"><a ng-click="selectBusqueda(busqueda);">{[{busqueda.identificador}]}</a></li>
+                  </ul>
+                </div>
+
+              </div>
+              <div class="panel-footer" ng-show="currentBusqueda">{[{currentBusqueda.identificador}]}</div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" ng-hide="!currentBusqueda || !currentInterprete">
+        <div class="col-lg-12">
+
+          <div class="panel panel-default">
+              <!-- Default panel contents -->
+              <div class="panel-heading">
+                  <div class="col-lg-5">
+                      Hay un total de <strong>{[{registros.total}]}</strong> registros
+                  </div>
+                  <div class="col-lg-7 margineNegative">
+                      <pagination on-select-page="cambioPaginaRegistros(page)"  total-items="registros.total" page="registros.current" max-size="'5'" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último" class="pagination-sm" boundary-links="true"></pagination>
+                  </div>
+              </div>
+              <div class="panel-body">
+                  <p>Para cada registro mostrado a continuación selecciona la opción que consideres adecuado, actuando tú como el interprete.</p>
+              </div>
+
+              <table ng-show="!registros.loading" class="table">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Valores</th>
+                    <th>Texto</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                      <tr data-ng-repeat="registro in registros.results" >
+                        <td>{[{$index+1}]}</td>
+                        <td>
+                          <div class="btn-group-vertical">
+                            <button type="button" class="btn btn-default" ng-repeat="v in currentInterprete.valores" ng-click="califica(v,registro);">{[{v}]}</button>
+                          </div>
+                        </td>
+                        <td>{[{ registro.body }]}</td>
+                      </tr>
+                      <tr>
+                          <td colspan="4">
+                              <h1 data-ng-hide="!registros.results || registros.results.length">No hay registros que mostar. </h1>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <div ng-show="registros.loading">
+                  <h4 class="inCenter"> Cargando registros</h4>
+                  <div class="progress progress-striped active">
+                    <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                      <span class="sr-only">100% Complete</span>
+                    </div>
+                  </div>
+              </div>
+
+          </div>
+
+        </div>
+    </div>
+
+    
+</section>
+

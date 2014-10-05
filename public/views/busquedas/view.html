@@ -1,0 +1,644 @@
+<section data-ng-controller="BusquedasController" ng-init="findOne()">
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                <li><a href="#!/busquedas"><i class="fa fa-dashboard"></i> Búsquedas</a></li>
+                <li class="active"><i class="fa fa-table"></i>Detalle</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row rowInForm">
+        <div class="col-lg-12">
+            <h3>{[{busqueda.identificador}]} <small>{[{busqueda.fuente}]} -</small>  <small>{[{busqueda.estado}]}</small></h3>
+        </div>
+        <div class="col-lg-5">
+            Tags: {[{busqueda.tags}]}
+        </div>
+        <div class="col-lg-4">
+            Trabajo: {[{busqueda.trabajo}]}
+        </div>
+        <div class="col-lg-3">
+            <h5 clock></h5>
+        </div>
+    </div>
+
+    <tabset>
+        <tab heading="Detalle">
+            
+            <div class="row rowInForm"></div>
+
+            <div class="row rowInForm">
+        
+                <div class="col-lg-3">
+                    <h4>Iniciar en:</h4>
+                    <p>{[{busqueda.inicio | date:'medium'}]}</p>
+                    <br>
+                    <h4>Finalizar en:</h4>
+                    <p>{[{busqueda.termino | date:'medium'}]}</p>
+                </div>
+
+                <div class="col-lg-3">
+                    <h4>Con estos querys:</h4>
+                    <ul class="list-group">
+                        <li ng-repeat="query in busqueda.querys" class="list-group-item">
+                          <span>{[{query.name}]}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3">
+                    <h4>Pasa resultados por:</h4>
+                    <ul class="list-group">
+                        <li ng-repeat="interprete in busqueda.interpretes" class="list-group-item">
+                          <span>{[{interprete.name}]}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3" ng-show="busqueda.estado == 'Archivada'">
+                    <h4>Totales obtenidos:</h4>
+                    <ul class="nav nav-pills nav-stacked" >
+                      <li>
+                        <a href="#">
+                          <span class="badge pull-right">{[{busqueda.totales.registros | number}]}</span>
+                          Tweets
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <span class="badge pull-right">{[{busqueda.totales.usuarios | number}]}</span>
+                          Usuarios
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <span class="badge pull-right">{[{busqueda.totales.medias | number}]}</span>
+                          Imágenes
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <span class="badge pull-right">{[{busqueda.totales.urls | number}]}</span>
+                          Urls
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <span class="badge pull-right">{[{busqueda.totales.hashtags | number}]}</span>
+                          Hashtags
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <span class="badge pull-right">{[{busqueda.totales.menciones | number}]}</span>
+                          Menciones
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <span class="badge pull-right">{[{busqueda.totales.locaciones | number}]}</span>
+                          Locaciones
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <span class="badge pull-right">{[{busqueda.totales.generadores | number}]}</span>
+                          Apps
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <span class="badge pull-right">{[{busqueda.totales.geos | number}]}</span>
+                          Tweets Geolocalizados
+                        </a>
+                      </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row rowInForm inCenter">
+                <div class="col-lg-4 col-lg-offset-4">
+                    <a href="#!/busquedas/{[{busqueda._id}]}/edit">
+                        <button type="button" class="btn btn-default btn-lg">Editar</button>
+                    </a>
+                    <a ng-hide="busqueda.estado == 'Corriendo'" data-ng-click="remove();">
+                        <button type="button" class="btn btn-danger btn-lg">Eliminar</button>
+                    </a>
+                    <a ng-show="busqueda.estado == 'Finalizada'" data-ng-click="archive();">
+                        <button type="button" class="btn btn-warning btn-lg">Archivar</button>
+                    </a>
+                </div>
+            </div>
+
+        </tab>
+
+        <tab heading="Tweets" disabled="busqueda.estado == 'Pendiente'">
+            
+            <div class="row rowInForm"></div>
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <div class="col-lg-4">
+                                Hay un total de <strong>{[{registros.total | number}]}</strong> registros
+                            </div>
+                            <div class="col-lg-7 margineNegative">
+                                <pagination on-select-page="cambioPaginaRegistros(page)"  total-items="registros.total" page="registros.current" max-size="'5'" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último" class="pagination-sm" boundary-links="true"></pagination>
+                            </div>
+                            <div class="col-lg-1 btnTopResults">
+                                <button type="button" ng-click="cargaRegistros()" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>Los tweets se encuentran ordenados según fueron capturandose y sus entidades se encuentran en las siguientes pestañas</p>
+                        </div>
+
+                        <table ng-show="!registros.loading" class="table">
+                            <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Fecha</th>
+                              <th>Query</th>
+                              <th>Texto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="registro in registros.results" >
+                                  <td>{[{$index+1}]}</td>
+                                  <td><a data-ng-href="{[{registro.link}]}" target="_blank">{[{registro.postedTime | date:'dd/MM hh:mm:ss'}]}</a></td>
+                                  <td translate-query-id querys="{[{querys}]}" query="{[{ registro.query }]}"></td>
+                                  <td>
+                                    {[{ registro.body }]}
+                                    <br><span data-ng-repeat="i in registro.interpretaciones" class="label label-success">{[{i.name}]} : {[{i.valor}]}</span>
+                                  </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <h1 data-ng-hide="!registros.results || registros.results.length">No hay registros que mostar. </h1>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-show="registros.loading">
+                            <h4 class="inCenter"> Cargando registros</h4>
+                            <div class="progress progress-striped active">
+                              <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                <span class="sr-only">100% Complete</span>
+                              </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </tab>
+
+        <tab heading="Usuarios" disabled="busqueda.estado == 'Pendiente'">
+            
+            <div class="row rowInForm"></div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <div class="col-lg-4">
+                                Hay un total de <strong>{[{usuarios.total | number}]}</strong> usuarios
+                            </div>
+                            <div class="col-lg-7 margineNegative">
+                                <pagination on-select-page="cambioPaginaUsuarios(page)"  total-items="usuarios.total" page="usuarios.current" max-size="'5'" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último" class="pagination-sm" boundary-links="true"></pagination>
+                            </div>
+                            <div class="col-lg-1 btnTopResults">
+                                <button type="button" ng-click="cargaUsuarios()" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>Cada usuario puede generar mas de 1 tweet referente a la búsqueda, es por eso que es común que haya menos usuarios que registros.</p>
+                        </div>
+
+                        <table class="table" ng-show="!usuarios.loading">
+                            <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Imagen</th>
+                              <th>Usuario</th>
+                              <th>Nombre</th>
+                              <th>Tweets</th>
+                              <th>Following</th>
+                              <th>Followers</th>
+                              <th>Tweets</th>
+                              <th>Verified</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="usuario in usuarios.results" >
+                                  <td>{[{$index+1}]}</td>
+                                  <td><img data-ng-src="{[{usuario.image}]}" /></td>
+                                  <td><a data-ng-href="{[{usuario.link}]}" target="_blank">{[{usuario.preferredUsername}]}</a></td>
+                                  <td>{[{ usuario.displayName }]}</td>
+                                  <td>{[{ usuario.total | number }]}</td>
+                                  <td>{[{ usuario.friendsCount | number }]}</td>
+                                  <td>{[{ usuario.followersCount | number }]}</td>
+                                  <td>{[{ usuario.statusesCount | number }]}</td>
+                                  <td>{[{ usuario.verified }]}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <h1 data-ng-hide="!usuarios.results || usuarios.results.length">No hay usuarios que mostrar. </h1>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-show="usuarios.loading">
+                            <h4 class="inCenter"> Cargando usuarios</h4>
+                            <div class="progress progress-striped active">
+                              <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                <span class="sr-only">100% Complete</span>
+                              </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </tab>
+            
+        <tab heading="Imágenes" disabled="busqueda.estado == 'Pendiente'">
+            
+            <div class="row rowInForm"></div>
+            
+            <div class="row">
+                
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <div class="col-lg-4">
+                                Hay <strong>{[{medias.total | number }]}</strong> imágenes únicas 
+                            </div>
+                            <div class="col-lg-7 margineNegative">
+                                <pagination on-select-page="cambioPaginaMedias(page)" items-per-page="'10'"  total-items="medias.total" page="medias.current" max-size="'5'" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último" class="pagination-sm" boundary-links="true"></pagination>
+                            </div>
+                            <div class="col-lg-1 btnTopResults">
+                                <button type="button" ng-click="cargaMedias()" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>Las imágenes estan agrupadas aún si no han sido retweets y estas provienen de diferentes tweets siempre y cuando sean la misma imagen. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3" data-ng-repeat="media in medias.results" ng-show="!medias.loading">
+                    
+                    <div class="thumbnail" >
+                      <a target="_blank" ng-href="{[{media.expanded_url}]}"><img ng-src="{[{media.media_url}]}" alt="..." class="imgInTweet"></a>
+                      <div class="caption">
+                        <h3>{[{media.total | number}]}</h3>
+                        <p>{[{media.display_url}]}</p>
+                      </div>
+                    </div>
+
+                </div>
+                <h1 data-ng-hide="!medias.results || medias.results.length">No hay imágenes que mostar. </h1>
+
+                <div ng-show="medias.loading">
+                    <h4 class="inCenter"> Cargando medias</h4>
+                    <div class="progress progress-striped active">
+                      <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                        <span class="sr-only">100% Complete</span>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </tab>
+
+        <tab heading="URLs" disabled="busqueda.estado == 'Pendiente'">
+            
+            <div class="row rowInForm"></div>
+            
+            <div class="row">
+                
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <div class="col-lg-4">
+                                Hay un total de <strong>{[{urls.total | number }]}</strong> URLs
+                            </div>
+                            <div class="col-lg-7 margineNegative">
+                                <pagination on-select-page="cambioPaginaUrls(page)" items-per-page="'10'"  total-items="urls.total" page="urls.current" max-size="'5'" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último" class="pagination-sm" boundary-links="true"></pagination>
+                            </div>
+                            <div class="col-lg-1 btnTopResults">
+                                <button type="button" ng-click="cargaUrls()" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>Las imágenes y los titulos de la urls son obtenidos via scrapping asi que pueden no estar disponibles en todos los casos. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    
+                    <div class="media" data-ng-repeat="url in urls.results" ng-show="!urls.loading">
+                      <a class="pull-left" target="_blank" ng-href="{[{url.expanded_url}]}">
+                        <img class="media-object imgFromLink" ng-src="http://placehold.it/64x64&text={[{url.total | number }]}">
+                      </a>
+                      <div class="media-body">
+                        <p><a target="_blank" ng-href="{[{url.expanded_url}]}">{[{url.expanded_url}]}</a></p>
+                      </div>
+                    </div>
+                    <h1 data-ng-hide="!urls.results || urls.results.length">No hay urls que mostar. </h1>
+
+                    <div ng-show="urls.loading">
+                        <h4 class="inCenter"> Cargando urls</h4>
+                        <div class="progress progress-striped active">
+                          <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            <span class="sr-only">100% Complete</span>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </tab>
+
+        <tab heading="Hashtags" disabled="busqueda.estado == 'Pendiente'">
+            
+            <div class="row rowInForm"></div>
+            
+            <div class="row">
+                
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <div class="col-lg-4">
+                                Hay un total de <strong>{[{hashtags.total | number }]}</strong> hashtags
+                            </div>
+                            <div class="col-lg-7 margineNegative">
+                                <pagination on-select-page="cambioPaginaHashtags(page)" items-per-page="'10'"  total-items="hashtags.total" page="hashtags.current" max-size="'5'" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último" class="pagination-sm" boundary-links="true"></pagination>
+                            </div>
+                            <div class="col-lg-1 btnTopResults">
+                                <button type="button" ng-click="cargaHashtags()" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>Recuerda que un tweet puede tener más de un hashtag por lo tanto la posibilidad de que haya mas hashtags que tweets es alta. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    
+                    <ul class="nav nav-pills nav-stacked" ng-show="!hashtags.loading">
+                      <li  data-ng-repeat="hashtag in hashtags.results">
+                        <a href="#">
+                          <span class="badge pull-right">{[{hashtag.total | number }]}</span>
+                          #{[{hashtag.text}]}
+                        </a>
+                      </li>
+                    </ul>
+                    <h1 data-ng-hide="!hashtags.results || hashtags.results.length">No hay hashtags que mostar. </h1>
+
+                    <div ng-show="hashtags.loading">
+                        <h4 class="inCenter"> Cargando hashtags</h4>
+                        <div class="progress progress-striped active">
+                          <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            <span class="sr-only">100% Complete</span>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </tab>
+
+        <tab heading="Menciones" disabled="busqueda.estado == 'Pendiente'">
+            
+            <div class="row rowInForm"></div>
+            
+            <div class="row">
+                
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <div class="col-lg-4">
+                                Hay un total de <strong>{[{menciones.total | number }]}</strong> usuarios mencionados
+                            </div>
+                            <div class="col-lg-7 margineNegative">
+                                <pagination on-select-page="cambioPaginaMenciones(page)" items-per-page="'10'"  total-items="menciones.total" page="menciones.current" max-size="'5'" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último" class="pagination-sm" boundary-links="true"></pagination>
+                            </div>
+                            <div class="col-lg-1 btnTopResults">
+                                <button type="button" ng-click="cargaMenciones()" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>Recuerda que un tweet puede tener más de una mención por lo tanto la posibilidad de que haya mas menciones que tweets es alta. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    
+                    <ul class="nav nav-pills nav-stacked" ng-show="!menciones.loading">
+                      <li  data-ng-repeat="mencion in menciones.results">
+                        <a href="#">
+                          <span class="badge pull-right">{[{mencion.total | number }]}</span>
+                          @{[{mencion.screen_name}]}
+                        </a>
+                      </li>
+                    </ul>
+                    <h1 data-ng-hide="!menciones.results || menciones.results.length">No hay menciones que mostar. </h1>
+
+                    <div ng-show="menciones.loading">
+                        <h4 class="inCenter"> Cargando menciones</h4>
+                        <div class="progress progress-striped active">
+                          <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            <span class="sr-only">100% Complete</span>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </tab>        
+        
+        <tab heading="Locaciones" disabled="busqueda.estado == 'Pendiente'">
+            
+            <div class="row rowInForm"></div>
+            
+            <div class="row">
+                
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <div class="col-lg-4">
+                                Hay un total de <strong>{[{locaciones.total | number }]}</strong> locaciones
+                            </div>
+                            <div class="col-lg-7 margineNegative">
+                                <pagination on-select-page="cambioPaginaLocaciones(page)" items-per-page="'10'"  total-items="locaciones.total" page="locaciones.current" max-size="'5'" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último" class="pagination-sm" boundary-links="true"></pagination>
+                            </div>
+                            <div class="col-lg-1 btnTopResults">
+                                <button type="button" ng-click="cargaLocaciones()" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>Las locaciones son aproximadas dependiendo de la red desde que sale un registro, puede no ser exacta o puede no venir en el registro. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    
+                    <ul class="nav nav-pills nav-stacked" ng-show="!locaciones.loading">
+                      <li  data-ng-repeat="locacion in locaciones.results">
+                        <a href="#">
+                          <span class="badge pull-right">{[{locacion.total | number }]}</span>
+                          {[{locacion.displayName}]}
+                        </a>
+                      </li>
+                    </ul>
+                     <h1 data-ng-hide="!locaciones.results || locaciones.results.length">No hay locaciones que mostar. </h1>
+
+                    <div ng-show="locaciones.loading">
+                        <h4 class="inCenter"> Cargando locaciones</h4>
+                        <div class="progress progress-striped active">
+                          <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            <span class="sr-only">100% Complete</span>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </tab>
+
+        <tab heading="Apps" disabled="busqueda.estado == 'Pendiente'">
+            
+            <div class="row rowInForm"></div>
+            
+            <div class="row">
+                
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <div class="col-lg-4">
+                                Hay un total de <strong>{[{generadores.total | number }]}</strong> generadores
+                            </div>
+                            <div class="col-lg-7 margineNegative">
+                                <pagination on-select-page="cambioPaginaGeneradores(page)" items-per-page="'10'"  total-items="generadores.total" page="generadores.current" max-size="'5'" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último" class="pagination-sm" boundary-links="true"></pagination>
+                            </div>
+                            <div class="col-lg-1 btnTopResults">
+                                <button type="button" ng-click="cargaGeneradores()" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>Los generadores son las aplicaciones desde la cuales se han gerado los registros, pueden o no ser oficiales. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    
+                    <ul class="nav nav-pills nav-stacked" ng-show="!generadores.loading">
+                      <li  data-ng-repeat="generador in generadores.results">
+                        <a target="_blank" ng-href="{[{generador.link}]}">
+                          <span class="badge pull-right">{[{generador.total | number }]}</span>
+                          {[{generador.displayName}]}
+                        </a>
+                      </li>
+                    </ul>
+                    <h1 data-ng-hide="!generadores.results || generadores.results.length">No hay generadores que mostar. </h1>
+
+                    <div ng-show="generadores.loading">
+                        <h4 class="inCenter"> Cargando generadores</h4>
+                        <div class="progress progress-striped active">
+                          <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            <span class="sr-only">100% Complete</span>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </tab>
+
+        <tab heading="Mapa" select="createMap()" disabled="busqueda.estado == 'Pendiente'">
+            
+            <div class="row rowInForm"></div>
+            
+            <div class="row">
+                
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <div class="col-lg-4">
+                                Hay un total de <strong>{[{geos.total | number }]}</strong> registros geolocalizados
+                            </div>
+                            <div class="col-lg-7 margineNegative">
+                                <pagination on-select-page="cambioPaginaGeos(page)" items-per-page="'100'"  total-items="geos.total" page="geos.current" max-size="'5'" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último" class="pagination-sm" boundary-links="true"></pagination>
+                            </div>
+                            <div class="col-lg-1 btnTopResults">
+                                <button type="button" ng-click="cargaGeos()" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>Las geos son exactos de usuarios que han activado su ubicación, ten en cuenta que el porcentage de estos es usuario es bajo. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12" ng-show="!geos.loading">
+                    <div id="map" style="width:100%; height:420px;" ></div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div ng-show="geos.loading">
+                        <h4 class="inCenter"> Cargando registros geolocalizados</h4>
+                        <div class="progress progress-striped active">
+                          <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            <span class="sr-only">100% Complete</span>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 data-ng-hide="!geos.results || geos.results.length">No hay geos que mostar. </h1>
+
+            </div>
+
+        </tab>
+
+    </tabset>
+
+
+
+
+</section>

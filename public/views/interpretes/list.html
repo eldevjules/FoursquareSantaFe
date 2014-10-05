@@ -1,0 +1,57 @@
+<section data-ng-controller="InterpretesController" data-ng-init="find()">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                <li class="active"><i class="fa fa-table"></i>Interpretes</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <p>
+                <a href="#!/interpretes/create"><button type="button" class="btn btn-primary btn-lg">Crear un Interprete</button></a>
+            </p>
+        </div>
+        <div class="col-lg-9"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-9">
+          <div class="alert alert-info alert-dismissable">
+              Los interpretes necesitan ser entrenados antes de ser usados después de eso pueden ser explotados tanto como queramos para interpretar datos.             
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <input ng-model="searchText" class="form-control inputSearch" placeholder="Buscar...">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Interprete</th>
+                  <th>Valores</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-ng-repeat="interprete in interpretes | filter:searchText">
+                  <td><a data-ng-href="#!/interpretes/{[{interprete._id}]}">{[{interprete.name | limitTo:25}]}</a></td>
+                  <td>{[{interprete.valores}]}</td>
+                </tr>
+                <tr>
+                  <td colspan="5">
+                    <h1 data-ng-hide="!interpretes || interpretes.length">No hay interpretes creados aún. <br>  <a href="#!/interpretes/create">Crea uno</a>?</h1>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,43 @@
+<section data-ng-controller="InterpretesController">
+	
+	<div class="row">
+		<div class="col-lg-12">
+			<ol class="breadcrumb">
+                <li><a href="#!/interpretes"><i class="fa fa-dashboard"></i> Interpretes</a></li>
+                <li class="active"><i class="fa fa-table"></i>Agregar</li>
+            </ol>
+		</div>
+	</div>
+
+	<form data-ng-submit="create(i)" role="form" id="formInterprete" name="formInterprete" novalidate>
+		
+		<div class="row rowInForm">
+			<div class="col-lg-8">
+				<label for="name">Nombre para el interprete</label>
+				<input type="text" name="name" class="form-control" data-ng-model="i.name" id="name" placeholder="Ejemplo: Sentimiento" required>
+				<p ng-show="formInterprete.name.$invalid && !formInterprete.name.$pristine" class="text-danger">Debes poner un nombre para el interprete.</p>
+				<label>Valores disponibles</label>
+				<tags-input ng-model="i.valores" custom-class="bootstrap" placeholder="valores" allowed-tags-pattern="^[a-zA-Z0-9\s\!\_\.\'\#\u00E0-\u00FC]+$" replace-spaces-with-dashes="true"></tags-input>
+			</div>
+			<div class="col-lg-2">
+				<button type="submit" id="btnSubmitInterprete" ng-disabled="formInterprete.$invalid" class="btn btn-primary btn-lg">Crear Interprete</button>
+			</div>
+		</div>
+
+		<div ng-show="formInterprete.loading">
+            <h4 class="inCenter"> Creando interprete</h4>
+            <div class="progress progress-striped active">
+              <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                <span class="sr-only">100% Complete</span>
+              </div>
+            </div>
+        </div>
+
+		<div class="bs-callout bs-callout-danger" ng-show="formInterprete.hayerror">
+		    <h4>No pudimos crear este interprete =( </h4>
+		    <p>{[{formInterprete.error}]}</p>
+		</div>
+		
+	</form>
+
+</section>

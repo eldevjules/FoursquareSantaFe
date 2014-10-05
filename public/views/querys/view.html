@@ -1,0 +1,238 @@
+<section data-ng-controller="QuerysController" data-ng-init="findOne()">
+    
+    <div class="row">
+		<div class="col-lg-12">
+			<ol class="breadcrumb">
+                <li><a href="#!/querys"><i class="fa fa-dashboard"></i> Querys</a></li>
+                <li class="active"><i class="fa fa-table"></i>Detalle</li>
+            </ol>
+		</div>
+	</div>
+
+		
+	<div class="row rowInForm">
+		<div class="col-lg-8">
+			<h1>{[{q.name}]}</h1>
+		</div>
+
+		<div class="col-lg-4 btnEditDelete">
+	        <a href="#!/querys/{[{q._id}]}/edit">
+	        	<button type="button" class="btn btn-default">Editar</button>
+	        </a>
+	        <a data-ng-click="remove(q);">
+	            <button type="button" class="btn btn-danger">Eliminar</button>
+	        </a>
+	    </div>
+	</div>
+
+
+	<tabset>
+
+        <tab heading="Palabras">
+        	<!-- Palabras -->
+        	<div class="row rowInForm"></div>
+			<div class="row rowInForm">
+				<div class="col-lg-6">
+					<label for="q.words">Palabras que debe tener</label>
+					<p>{[{q.words}]}</p>
+				</div>
+				<div class="col-lg-6">
+					<label for="q.nowords">Palabras que no debe tener</label>
+					<p>{[{q.nowords}]}</p>
+				</div>
+			</div>
+        </tab>
+
+        <tab heading="Frases">
+        	<div class="row rowInForm"></div>
+        	<p>Las palabras que componen la frase pueden ser exactas, aleatorias o respestar un limite de proximidad </p>
+        	<div class="row rowInForm">
+				
+				<div class="col-lg-6 col-lg-offset-2">
+					<div class="espaciado">
+						<label for="q.phrases">Frases que debe tener</label>
+					    <p>{[{q.phrasesoperator}]}</p>
+				    </div>
+				    <p>{[{q.phrases}]}</p>
+					<div ng-show="q.phrasesoperator == 'proximas'" class="espaciado">
+						<label>¿Máxima separación (1-6)?</label>
+					    <p>{[{q.phrasesproximity}]}</p>
+				    </div>
+				</div>
+
+			</div>
+        </tab>
+
+        <tab heading="Usuarios">
+        	<div class="row rowInForm"></div>
+        	<div class="row rowInForm">
+				<div class="col-lg-4">
+					<label>Menciones</label>
+				    <p>{[{q.hasmentions}]}</p>
+				</div>
+			</div>
+			<div class="row rowInForm">
+				<div class="col-lg-6">
+					<label for="q.froms">Contenido generado por estos usuarios:</label>
+					<p>{[{q.froms}]}</p>
+				</div>
+				<div class="col-lg-6">
+					<label for="q.tos">Contenido en respuesta a estos usuarios:</label>
+					<p>{[{q.tos}]}</p>
+				</div>
+			</div>
+			<div class="row rowInForm">
+				<div class="col-lg-6">
+					<label for="q.retweets">Retweets de estos usuarios:</label>
+					<p>{[{q.retweets}]}</p>
+				</div>
+				<div class="col-lg-6">
+					<label for="q.arrobas">Contenido que mencione a estos usuarios:</label>
+					<p>{[{q.arrobas}]}</p>
+				</div>
+			</div>
+        </tab>
+
+        <tab heading="Geolocalización">
+        	<div class="row rowInForm"></div>
+        	<div class="row rowInForm">
+				<div class="col-lg-4">
+					<label>Geolocalización</label>
+				    <p>{[{q.hasgeo}]}</p>
+				</div>
+			
+				<div class="col-lg-6" ng-show="q.hasgeo == 'Debe tener'">
+
+					<div class="espaciado">
+						<label>Escribe la latitud</label>
+						<p>{[{q.lat}]}</p>
+					</div>
+					<div class="espaciado">
+						<label>Escribe la longitud</label>
+						<p>{[{q.lng}]}</p>
+					</div>	
+					<div class="espaciado">
+						<label>Escribe el radio (menor a 41 km)</label>
+						<p>{[{q.radius}]}</p>
+					</div>					
+
+				</div>
+			</div>
+        </tab>
+
+        <tab heading="Links">
+        	<div class="row rowInForm"></div>
+        	<div class="row rowInForm">
+				<div class="col-lg-4">
+					<label>Links</label>
+				    <p>{[{q.haslinks}]}</p>
+				</div>
+				<div class="col-lg-8" ng-show="q.haslinks == 'Debe tener'">
+					<label>Si los links deben tener cierto contenido, escribelos aquí</label>
+				    <p>{[{q.links}]}</p>
+				</div>
+				
+			</div>
+        </tab>
+
+        <tab heading="Contenido">
+        	<div class="row rowInForm"></div>
+        	<div class="row rowInForm">
+				<div class="col-lg-4">
+					<label>Imágenes</label>
+				    <p>{[{q.hasmedia}]}</p>
+				</div>
+				<div class="col-lg-4">
+					<label>Retweets</label>
+				    <p>{[{q.isretweet}]}</p>
+				</div>
+				<div class="col-lg-4">
+					<label>Cuentas verificadas</label>
+				    <p>{[{q.isverified}]}</p>
+				</div>
+			</div>
+        </tab>
+
+        <tab heading="Hashtags">
+        	<div class="row rowInForm"></div>
+        	<div class="row rowInForm">
+        		<div class="col-lg-4">
+					<label>Hashtags</label>
+				    <p>{[{q.hashashtags}]}</p>
+				</div>
+				<div class="col-lg-8" ng-show="q.hashashtags == 'Debe tener'">
+					<p>Obtén tweets que especificamene incluyan alguno de estos hashtags</p>
+					<p>{[{q.hashtags}]}</p>
+				</div>
+        	</div>
+        </tab>
+
+        <tab heading="Lenguaje">
+        	<div class="row rowInForm"></div>
+        	<div class="row rowInForm">
+        		<div class="col-lg-3 col-lg-offset-3">
+					<label>Lenguaje</label>
+				    <p>{[{q.haslang}]}</p>
+				</div>
+				<div class="col-lg-5" ng-hide="q.haslang == 'Da igual'">
+				    <p>{[{q.lang}]}</p>
+				</div>
+        	</div>
+        </tab>
+
+        <tab heading="Números">
+        	<div class="row rowInForm"></div>
+        	<div class="row rowInForm">
+        		<div class="col-lg-4 col-lg-offset-3">
+					<label>El usuario debe tener un mínimo de tweets?</label>
+				    <p>{[{q.usestatuscount}]}</p>
+				</div>
+				<div class="col-lg-2" ng-hide="q.usestatuscount == 'No'">
+					<label>¿Cuantos?</label>
+				    <p>{[{q.statuses_count}]}</p>
+				</div>
+			</div>
+			<div class="row rowInForm">
+				<div class="col-lg-4 col-lg-offset-3">
+					<label>El usuario debe seguir a un minimo de usuarios?</label>
+				    <p>{[{q.usefriendscount}]}</p>
+				</div>
+				<div class="col-lg-2" ng-hide="q.usefriendscount == 'No'">
+					<label>¿Cuantos?</label>
+				    <p>{[{q.friends_count}]}</p>
+				</div>
+        	</div>
+        	<div class="row rowInForm">
+				<div class="col-lg-4 col-lg-offset-3">
+					<label>El usuario debe tener un mínimo de seguidores?</label>
+				    <p>{[{q.usefollowerscount}]}</p>
+				</div>
+				<div class="col-lg-2" ng-hide="q.usefollowerscount == 'No'">
+					<label>¿Cuantos?</label>
+				    <p>{[{q.followers_count}]}</p>
+				</div>
+			</div>
+        </tab>
+
+        <tab heading="Origenes">
+        	<div class="row rowInForm"></div>
+        	<div class="row rowInForm">
+				<div class="col-lg-4">
+					<label>Los resultados debe venir de ciertas aplicaciones?</label>
+				    <p>{[{q.usesources}]}</p>
+			    	<div ng-hide="q.usesources == 'No'" class="espaciado">
+						<label>Quiere incluirlos o excuirlos?</label>
+						<p>{[{q.operatorsources}]}</p>
+					</div>
+				</div>
+				
+				<div class="col-lg-8" ng-hide="q.usesources == 'No'">
+					<label>Apps</label>
+					<p>{[{q.sources}]}</p>
+				</div>
+			</div>
+        </tab>
+
+    </tabset>
+
+</section>

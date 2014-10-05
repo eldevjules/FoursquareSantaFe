@@ -1,0 +1,319 @@
+<section data-ng-controller="QuerysController" data-ng-init="findOne()">
+	
+	<div class="row">
+		<div class="col-lg-12">
+			<ol class="breadcrumb">
+                <li><a href="#!/querys"><i class="fa fa-dashboard"></i> Querys</a></li>
+                <li><a href="#!/querys/{[{q._id}]}"><i class="fa fa-dashboard"></i>{[{q.name}]}</a></li>
+                <li class="active"><i class="fa fa-table"></i>Editar</li>
+            </ol>
+		</div>
+	</div>
+
+	<form data-ng-submit="update(q)" role="form" id="formQuery" name="formQuery" novalidate>
+		
+		<div class="row rowInForm">
+			<div class="col-lg-10">
+				<label for="name">Nombre para el query</label>
+				<input type="text" name="name" class="form-control" data-ng-model="q.name" id="name" placeholder="Ejemplo: Búsqueda de Goles" required>
+				<p ng-show="formQuery.name.$invalid && !formQuery.name.$pristine" class="text-danger">Debes poner un nombre para el query.</p>
+			</div>
+			<div class="col-lg-2">
+				<button type="submit" id="btnSubmitQuery" ng-disabled="formQuery.$invalid || formquery.loading" class="btn btn-primary btn-lg">Crear Query</button>
+			</div>
+		</div>
+
+		<div ng-show="formquery.loading">
+            <h4 class="inCenter"> Actualizando query</h4>
+            <div class="progress progress-striped active">
+              <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                <span class="sr-only">100% Complete</span>
+              </div>
+            </div>
+        </div>
+
+		<div class="bs-callout bs-callout-danger" ng-show="formquery.hayerror">
+		    <h4>Gnip no pudo crear la regla para este query</h4>
+		    <p>{[{formquery.error}]}</p>
+		</div>
+
+		<tabset ng-show="!formquery.loading">
+
+	        <tab heading="Palabras">
+	        	<!-- Palabras -->
+	        	<div class="row rowInForm"></div>
+				<div class="row rowInForm">
+					<div class="col-lg-6">
+						<label for="q.words">Palabras que debe tener</label>
+						<p>Solo incluye palabras sin espacios</p>
+						<tags-input ng-model="q.words" custom-class="bootstrap" placeholder="Palabras" allowed-tags-pattern="^[a-zA-Z0-9\s\!\_\.\'\#\u00E0-\u00FC]+$" replace-spaces-with-dashes="true"></tags-input>
+					</div>
+					<div class="col-lg-6">
+						<label for="q.nowords">Palabras que no debe tener</label>
+						<p>Solo incluye palabras sin espacios</p>
+						<tags-input ng-model="q.nowords" custom-class="bootstrap" placeholder="Palabras" allowed-tags-pattern="^[a-zA-Z0-9\s\!\_\.\'\#\u00E0-\u00FC]+$" replace-spaces-with-dashes="true"></tags-input>
+					</div>
+				</div>
+	        </tab>
+
+	        <tab heading="Frases">
+	        	<div class="row rowInForm"></div>
+	        	<p>Las palabras que componen la frase pueden ser exactas, aleatorias o respestar un limite de proximidad </p>
+	        	<div class="row rowInForm">
+					
+					<div class="col-lg-6 col-lg-offset-2">
+						<div class="espaciado">
+							<label for="q.phrases">Frases que debe tener</label>
+						    <div class="btn-group">
+						        <button type="button" class="btn btn-default" ng-model="q.phrasesoperator" btn-radio="'exactas'">Exactas</button>
+						        <button type="button" class="btn btn-default" ng-model="q.phrasesoperator" btn-radio="'aleatorias'">En cualquier orden</button>
+						        <button type="button" class="btn btn-default" ng-model="q.phrasesoperator" btn-radio="'proximas'">Próximas</button>
+						    </div>
+					    </div>
+					    <tags-input ng-model="q.phrases" placeholder="Frases" custom-class="bootstrap" allowed-tags-pattern="^[a-zA-Z0-9\s\!\_\.\'\#\u00E0-\u00FC]+$" replace-spaces-with-dashes="false"></tags-input>
+						<div ng-show="q.phrasesoperator == 'proximas'" class="espaciado">
+							<label>¿Máxima separación (1-6)?</label>
+						    <div class="btn-group" >
+						        <input type="number" name="phrasesproximity" class="form-control" data-ng-model="q.phrasesproximity">
+						    </div>
+					    </div>
+					</div>
+
+				</div>
+	        </tab>
+
+	        <tab heading="Usuarios">
+	        	<div class="row rowInForm"></div>
+	        	<div class="row rowInForm">
+					<div class="col-lg-4">
+						<label>Menciones</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.hasmentions" btn-radio="'Debe tener'">Debe tener</button>
+					        <button type="button" class="btn btn-default" ng-model="q.hasmentions" btn-radio="'Da igual'">Da igual</button>
+					        <button type="button" class="btn btn-default" ng-model="q.hasmentions" btn-radio="'No debe tener'">No debe tener</button>
+					    </div>
+					</div>
+				</div>
+				<div class="row rowInForm">
+					<div class="col-lg-6">
+						<label for="q.froms">Contenido generado por estos usuarios:</label>
+						<p>Los tweets, retweets, faves hechos por estos usuarios</p>
+						<tags-input ng-model="q.froms" custom-class="bootstrap" allowed-tags-pattern="^[a-zA-Z0-9\s\!\_\.\'\#\u00E0-\u00FC]+$" replace-spaces-with-dashes="false"></tags-input>
+					</div>
+					<div class="col-lg-6">
+						<label for="q.tos">Contenido en respuesta a estos usuarios:</label>
+						<p>Cualquier tweet que sea una respuesta al contenido de estos usuarios </p>
+						<tags-input ng-model="q.tos" custom-class="bootstrap" allowed-tags-pattern="^[a-zA-Z0-9\s\!\_\.\'\#\u00E0-\u00FC]+$" replace-spaces-with-dashes="false"></tags-input>
+					</div>
+				</div>
+				<div class="row rowInForm">
+					<div class="col-lg-6">
+						<label for="q.retweets">Retweets de estos usuarios:</label>
+						<p>Obten tweets que sean retweets de estos usuarios específicamente</p>
+						<tags-input ng-model="q.retweets" custom-class="bootstrap" allowed-tags-pattern="^[a-zA-Z0-9\s\!\_\.\'\#\u00E0-\u00FC]+$" replace-spaces-with-dashes="false"></tags-input>
+					</div>
+					<div class="col-lg-6">
+						<label for="q.arrobas">Contenido que mencione a estos usuarios:</label>
+						<p>Obtén tweets donde se mencionen a estos usuarios</p>
+						<tags-input ng-model="q.arrobas" custom-class="bootstrap" allowed-tags-pattern="^[a-zA-Z0-9\s\!\_\.\'\#\u00E0-\u00FC]+$" replace-spaces-with-dashes="false"></tags-input>
+					</div>
+				</div>
+	        </tab>
+
+	        <tab heading="Geolocalización">
+	        	<div class="row rowInForm"></div>
+	        	<div class="row rowInForm">
+					<div class="col-lg-4">
+						<label>Geolocalización</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.hasgeo" btn-radio="'Debe tener'">Debe tener</button>
+					        <button type="button" class="btn btn-default" ng-model="q.hasgeo" btn-radio="'Da igual'">Da igual</button>
+					        <button type="button" class="btn btn-default" ng-model="q.hasgeo" btn-radio="'No debe tener'">No debe tener</button>
+					    </div>
+					</div>
+				
+					<div class="col-lg-6" ng-show="q.hasgeo == 'Debe tener'">
+
+						<div class="espaciado">
+							<label>Escribe la latitud</label>
+							<input type="text" name="q.lat" class="form-control" data-ng-model="q.lat">
+						</div>
+						<div class="espaciado">
+							<label>Escribe la longitud</label>
+							<input type="text" name="q.lng" class="form-control" data-ng-model="q.lng">
+						</div>	
+						<div class="espaciado">
+							<label>Escribe el radio (menor a 41 km)</label>
+							<input type="text" name="q.radius" class="form-control" data-ng-model="q.radius">
+						</div>					
+
+					</div>
+				</div>
+	        </tab>
+
+	        <tab heading="Links">
+	        	<div class="row rowInForm"></div>
+	        	<div class="row rowInForm">
+					<div class="col-lg-4">
+						<label>Links</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.haslinks" btn-radio="'Debe tener'">Debe tener</button>
+					        <button type="button" class="btn btn-default" ng-model="q.haslinks" btn-radio="'Da igual'">Da igual</button>
+					        <button type="button" class="btn btn-default" ng-model="q.haslinks" btn-radio="'No debe tener'">No debe tener</button>
+					    </div>
+					</div>
+					<div class="col-lg-8" ng-show="q.haslinks == 'Debe tener'">
+						<label>Si los links deben tener cierto contenido, escribelos aquí</label>
+					    <tags-input ng-model="q.links" custom-class="bootstrap" placeholder="Contenido" allowed-tags-pattern="^[a-zA-Z0-9\s\!\_\/\:\.\'\#\u00E0-\u00FC]+$" replace-spaces-with-dashes="false"></tags-input>
+					</div>
+					
+				</div>
+	        </tab>
+
+	        <tab heading="Contenido">
+	        	<div class="row rowInForm"></div>
+	        	<div class="row rowInForm">
+					<div class="col-lg-4">
+						<label>Imágenes</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.hasmedia" btn-radio="'Debe tener'">Debe tener</button>
+					        <button type="button" class="btn btn-default" ng-model="q.hasmedia" btn-radio="'Da igual'">Da igual</button>
+					        <button type="button" class="btn btn-default" ng-model="q.hasmedia" btn-radio="'No debe tener'">No debe tener</button>
+					    </div>
+					</div>
+					<div class="col-lg-4">
+						<label>Retweets</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.isretweet" btn-radio="'Deben ser'">Deben ser</button>
+					        <button type="button" class="btn btn-default" ng-model="q.isretweet" btn-radio="'Da igual'">Da igual</button>
+					        <button type="button" class="btn btn-default" ng-model="q.isretweet" btn-radio="'No deben ser'">No deben ser</button>
+					    </div>
+					</div>
+					<div class="col-lg-4">
+						<label>Cuentas verificadas</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.isverified" btn-radio="'Deben ser'">Deben ser</button>
+					        <button type="button" class="btn btn-default" ng-model="q.isverified" btn-radio="'Da igual'">Da igual</button>
+					        <button type="button" class="btn btn-default" ng-model="q.isverified" btn-radio="'No deben ser'">No deben ser</button>
+					    </div>
+					</div>
+				</div>
+	        </tab>
+
+	        <tab heading="Hashtags">
+	        	<div class="row rowInForm"></div>
+	        	<div class="row rowInForm">
+	        		<div class="col-lg-4">
+						<label>Hashtags</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.hashashtags" btn-radio="'Debe tener'">Debe tener</button>
+					        <button type="button" class="btn btn-default" ng-model="q.hashashtags" btn-radio="'Da igual'">Da igual</button>
+					        <button type="button" class="btn btn-default" ng-model="q.hashashtags" btn-radio="'No debe tener'">No debe tener</button>
+					    </div>
+					</div>
+					<div class="col-lg-8" ng-show="q.hashashtags == 'Debe tener'">
+						<p>Obtén tweets que especificamene incluyan alguno de estos hashtags</p>
+						<tags-input ng-model="q.hashtags" custom-class="bootstrap" allowed-tags-pattern="^[a-zA-Z0-9\s\!\_\.\'\#\u00E0-\u00FC]+$" replace-spaces-with-dashes="false"></tags-input>
+					</div>
+	        	</div>
+	        </tab>
+
+	        <tab heading="Lenguaje">
+	        	<div class="row rowInForm"></div>
+	        	<div class="row rowInForm">
+	        		<div class="col-lg-3 col-lg-offset-3">
+						<label>Lenguaje</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.haslang" btn-radio="'Da igual'">Da igual</button>
+					        <button type="button" class="btn btn-default" ng-model="q.haslang" btn-radio="'Debe ser'">Debe ser</button>
+					    </div>
+					</div>
+					<div class="col-lg-5" ng-hide="q.haslang == 'Da igual'">
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.lang" btn-radio="'es'">Español</button>
+					        <button type="button" class="btn btn-default" ng-model="q.lang" btn-radio="'en'">Inglés</button>
+					        <button type="button" class="btn btn-default" ng-model="q.lang" btn-radio="'pt'">Portugués</button>
+					    </div>
+					</div>
+	        	</div>
+	        </tab>
+
+	        <tab heading="Números">
+	        	<div class="row rowInForm"></div>
+	        	<div class="row rowInForm">
+	        		<div class="col-lg-4 col-lg-offset-3">
+						<label>El usuario debe tener un mínimo de tweets?</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.usestatuscount" btn-radio="'No'">No</button>
+					        <button type="button" class="btn btn-default" ng-model="q.usestatuscount" btn-radio="'Si'">Si</button>
+					    </div>
+					</div>
+					<div class="col-lg-2" ng-hide="q.usestatuscount == 'No'">
+						<label>¿Cuantos?</label>
+					    <div class="btn-group">
+					        <input type="number" name="statuses_count" class="form-control" data-ng-model="q.statuses_count">
+					    </div>
+					</div>
+				</div>
+				<div class="row rowInForm">
+					<div class="col-lg-4 col-lg-offset-3">
+						<label>El usuario debe seguir a un minimo de usuarios?</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.usefriendscount" btn-radio="'No'">No</button>
+					        <button type="button" class="btn btn-default" ng-model="q.usefriendscount" btn-radio="'Si'">Si</button>
+					    </div>
+					</div>
+					<div class="col-lg-2" ng-hide="q.usefriendscount == 'No'">
+						<label>¿Cuantos?</label>
+					    <div class="btn-group">
+					        <input type="number" name="friends_count" class="form-control" data-ng-model="q.friends_count">
+					    </div>
+					</div>
+	        	</div>
+	        	<div class="row rowInForm">
+					<div class="col-lg-4 col-lg-offset-3">
+						<label>El usuario debe tener un mínimo de seguidores?</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.usefollowerscount" btn-radio="'No'">No</button>
+					        <button type="button" class="btn btn-default" ng-model="q.usefollowerscount" btn-radio="'Si'">Si</button>
+					    </div>
+					</div>
+					<div class="col-lg-2" ng-hide="q.usefollowerscount == 'No'">
+						<label>¿Cuantos?</label>
+					    <div class="btn-group">
+					        <input type="number" name="followers_count" class="form-control" data-ng-model="q.followers_count">
+					    </div>
+					</div>
+				</div>
+	        </tab>
+
+	        <tab heading="Origenes">
+	        	<div class="row rowInForm"></div>
+	        	<div class="row rowInForm">
+					<div class="col-lg-4">
+						<label>Los resultados debe venir de ciertas aplicaciones?</label>
+					    <div class="btn-group">
+					        <button type="button" class="btn btn-default" ng-model="q.usesources" btn-radio="'No'">No</button>
+					        <button type="button" class="btn btn-default" ng-model="q.usesources" btn-radio="'Si'">Si</button>
+					    </div>
+				    	<div ng-hide="q.usesources == 'No'" class="espaciado">
+							<label>Quiere incluirlos o excuirlos?</label>
+							<div class="btn-group">
+						        <button type="button" class="btn btn-default" ng-model="q.operatorsources" btn-radio="'incluye'">Incluye solo estos</button>
+						        <button type="button" class="btn btn-default" ng-model="q.operatorsources" btn-radio="'excluye'">Excluye los siguientes</button>
+						    </div>
+						</div>
+					</div>
+					
+					<div class="col-lg-8" ng-hide="q.usesources == 'No'">
+						<label>Apps</label>
+						<tags-input ng-model="q.sources" custom-class="bootstrap" placeholder="El valor debe ser el nombre de la aplicación o su url" allowed-tags-pattern="^[a-zA-Z0-9\s\!\_\.\'\#\u00E0-\u00FC]+$" replace-spaces-with-dashes="false"></tags-input>
+					</div>
+				</div>
+	        </tab>
+
+        </tabset>
+		
+	</form>
+
+</section>
