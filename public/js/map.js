@@ -187,55 +187,46 @@ function explore(){
 
 
 function navegaSobreTrending(n){
-  if(n == 0){
-    animatePin(n);
-    return;
-  }
-
   setTimeout(function(){
-    animatePin(n);
-  },5000);
-}
+    trendN = trendings[n];
 
-function animatePin(n){
-  trendN = trendings[n];
+    var newN = n + 1;
+    if(newN <= trendings.length){
 
-  var newN = n + 1;
-  if(newN <= trendings.length){
+      //Desplaza el mapa
+      map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
 
-    //Desplaza el mapa
-    map.panTo(new google.maps.LatLng(trendN.location.lat - diff_height / 4 ,trendN.location.lng));
+      if(n == 0){
+        nAnterior = trendings.length-1;
+      }else{
+        nAnterior = n-1;
+      }
 
-    if(n == 0){
-      nAnterior = trendings.length-1;
+      //Quita animate del marker anterior
+      markerN = markersTrending[nAnterior];
+      markerN.setAnimation(null);
+      //Anima este marker
+      markerN = markersTrending[n];
+      markerN.setAnimation(google.maps.Animation.BOUNCE);
+
+      if(newN == 1){
+        //map.setZoom(zoomInPlace);
+      }
+
+      navegaSobreTrending(newN);
+
     }else{
-      nAnterior = n-1;
+      //Cuando ya termino, se centra en santa fe
+      map.panTo(centroSantaFe);
+
+      //Quitamos animacion del ultimo pin
+      nAnterior = trendings.length-1;
+      markerN = markersTrending[nAnterior];
+      markerN.setAnimation(null);
+
+      //map.setZoom(zoomInicial);
+      navegaSobreTrending(0);
     }
-
-    //Quita animate del marker anterior
-    markerN = markersTrending[nAnterior];
-    markerN.setAnimation(null);
-    //Anima este marker
-    markerN = markersTrending[n];
-    markerN.setAnimation(google.maps.Animation.BOUNCE);
-
-    if(newN == 1){
-      //map.setZoom(zoomInPlace);
-    }
-
-    navegaSobreTrending(newN);
-
-  }else{
-    //Cuando ya termino, se centra en santa fe
-    map.panTo(centroSantaFe);
-
-    //Quitamos animacion del ultimo pin
-    nAnterior = trendings.length-1;
-    markerN = markersTrending[nAnterior];
-    markerN.setAnimation(null);
-
-    //map.setZoom(zoomInicial);
-    navegaSobreTrending(0);
-  }
+  },5000);
 }
 
