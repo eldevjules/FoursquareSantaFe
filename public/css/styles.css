@@ -591,7 +591,7 @@ body {
   border-radius: 5px;
 }
 .leaderboards .check-in-kamikaze .header {
-  height: 70px;
+  height: 80px;
   font-size: 13px;
   color: #ffffff;
   background-color: #2e2e2e;
@@ -603,17 +603,18 @@ body {
   border-top-left-radius: 5px;
 }
 .leaderboards .check-in-kamikaze .header .icon {
-  float: left;
-  width: 30px;
+  width: 50px;
   height: 30px;
-  margin-top: 20px;
-  margin-left: 10px;
-  background-color: blue;
+  margin: auto;
+  padding-top: 5px;
+}
+.leaderboards .check-in-kamikaze .header .icon img {
+  height: 50px;
 }
 .leaderboards .check-in-kamikaze .header .title {
-  float: left;
-  margin-top: 29px;
-  margin-left: 15px;
+  position: relative;
+  top: 25px;
+  text-align: center;
   font-family: 'BentonLight', sans-serif;
 }
 .leaderboards .check-in-kamikaze .header .title span {
@@ -625,7 +626,7 @@ body {
 }
 .leaderboards .check-in-kamikaze .ranks .single-user {
   clear: both;
-  padding-top: 24px;
+  padding-top: 22px;
 }
 .leaderboards .check-in-kamikaze .ranks .single-user .avatar {
   float: left;
@@ -684,9 +685,10 @@ body {
 }
 .leaderboards .check-in-kamikaze .ranks .single-user .checkins .number-total .number {
   position: relative;
+  width: 32px;
   top: 7px;
-  left: 4px;
   font-size: 12px;
+  text-align: right;
 }
 .leaderboards .check-ins-kamikazes {
   margin-top: 10px;
@@ -696,7 +698,7 @@ body {
   border-radius: 5px;
 }
 .leaderboards .check-ins-kamikazes .header {
-  height: 70px;
+  height: 80px;
   font-size: 13px;
   color: #ffffff;
   background-color: #2e2e2e;
@@ -708,17 +710,18 @@ body {
   border-top-left-radius: 5px;
 }
 .leaderboards .check-ins-kamikazes .header .icon {
-  float: left;
-  width: 30px;
+  width: 50px;
   height: 30px;
-  margin-top: 20px;
-  margin-left: 10px;
-  background-color: red;
+  margin: auto;
+  padding-top: 0px;
+}
+.leaderboards .check-ins-kamikazes .header .icon img {
+  height: 50px;
 }
 .leaderboards .check-ins-kamikazes .header .title {
-  float: left;
-  margin-top: 29px;
-  margin-left: 15px;
+  position: relative;
+  top: 28px;
+  text-align: center;
   font-family: 'BentonLight', sans-serif;
 }
 .leaderboards .check-ins-kamikazes .header .title span {
@@ -730,7 +733,7 @@ body {
 }
 .leaderboards .check-ins-kamikazes .ranks .single-user {
   clear: both;
-  padding-top: 24px;
+  padding-top: 20px;
 }
 .leaderboards .check-ins-kamikazes .ranks .single-user .avatar {
   float: left;
@@ -789,7 +792,8 @@ body {
 }
 .leaderboards .check-ins-kamikazes .ranks .single-user .checkins .number-total .number {
   position: relative;
+  width: 32px;
   top: 7px;
-  left: 4px;
   font-size: 12px;
+  text-align: right;
 }
