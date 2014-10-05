@@ -3,10 +3,9 @@ google.maps.event.addDomListener(window, 'load', init);
 Mustache.tags = ['{[{', '}]}'];
 
 var map, pointarray, heatmap, gradient, trendings, markersTrending;
-// var centroSantaFe = new google.maps.LatLng(19.408038,-99.172457);
+var centroSantaFe = new google.maps.LatLng(25.7812698,-80.1954067);
 var fullWidth = $( window ).width() -300;
-var centroSantaFe = new google.maps.LatLng(19.3666209,-99.265259);
-var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
+// var centroSantaFe = new google.maps.LatLng(19.3661714,-99.2655203);
 
 var zoomInicial = 15;
 var zoomInPlace = 18;
@@ -378,7 +377,7 @@ function navegaSobreTrending(n){
       $(".placeContainer").animate({bottom:'10px'}, 1000);
       setTimeout(function(){
             $(".placeContainer").animate({bottom:'-550px'}, 1000);
-        }, 3000);
+        }, 8000);
 
       //Anima este marker
       markerN = markersTrending[n];
@@ -407,7 +406,7 @@ function navegaSobreTrending(n){
       //map.setZoom(zoomInicial);
       navegaSobreTrending(0);
     }
-  },5000);
+  },10000);
 }
 
 
