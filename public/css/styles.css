@@ -75,14 +75,13 @@ body {
   height: 5px;
 }
 .map-container .top5places .singlePlace .infoPlace {
-  margin-top: 35px;
-  margin-left: 10px;
+  margin-top: 8px;
   font-size: 18px;
 }
 .map-container .top5places .singlePlace .infoPlace .circle {
-  float: left;
   width: 22px;
   height: 22px;
+  margin-left: 8px;
   border-radius: 25px;
 }
 .map-container .top5places .singlePlace .infoPlace .circle .number {
@@ -92,17 +91,16 @@ body {
   font-family: 'BentonBlack', sans-serif;
 }
 .map-container .top5places .singlePlace .infoPlace .name {
-  float: left;
-  width: 160px;
-  margin-top: 5px;
+  width: 200px;
+  margin-top: 7px;
   margin-left: 8px;
   font-size: 19px;
   font-family: 'BentonBlack', sans-serif;
 }
 .map-container .top5places .singlePlace .infoPrice {
   clear: both;
-  margin-left: 10px;
-  padding-top: 10px;
+  margin-left: 8px;
+  padding-top: 3px;
   font-size: 16px;
 }
 .map-container .top5places .singlePlace .infoPrice .dollarSigns {
@@ -110,8 +108,7 @@ body {
   font-family: 'BentonBlack', sans-serif;
 }
 .map-container .top5places .singlePlace .infoPrice .typePlace {
-  float: left;
-  width: 140px;
+  width: 200px;
   font-family: 'BentonLight', sans-serif;
 }
 .map-container .top5places .singlePlace .infoPrice .typePlace span {
@@ -123,7 +120,7 @@ body {
 }
 .map-container .top5places .singlePlace .checkinPlace {
   clear: both;
-  margin-left: 10px;
+  margin-left: 8px;
   padding-top: 10px;
   font-size: 16px;
 }
@@ -132,13 +129,51 @@ body {
   position: relative;
   top: -2px;
   height: 18px;
+  width: 18px;
   margin-right: 6px;
+  background-size: 18px auto;
 }
 .map-container .top5places .singlePlace .checkinPlace .icon img {
   height: 18px;
 }
 .map-container .top5places .singlePlace .checkinPlace .icon.color-1 {
-  background-image: url("/img/naranja.png");
+  background-image: url("/img/foursquare/color-1.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-2 {
+  background-image: url("/img/foursquare/color-2.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-3 {
+  background-image: url("/img/foursquare/color-3.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-4 {
+  background-image: url("/img/foursquare/color-4.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-5 {
+  background-image: url("/img/foursquare/color-5.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-6 {
+  background-image: url("/img/foursquare/color-6.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-7 {
+  background-image: url("/img/foursquare/color-7.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-8 {
+  background-image: url("/img/foursquare/color-8.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-9 {
+  background-image: url("/img/foursquare/color-9.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-10 {
+  background-image: url("/img/foursquare/color-10.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-11 {
+  background-image: url("/img/foursquare/color-11.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-12 {
+  background-image: url("/img/foursquare/color-12.png");
+}
+.map-container .top5places .singlePlace .checkinPlace .icon.color-13 {
+  background-image: url("/img/foursquare/color-13.png");
 }
 .map-container .top5places .singlePlace .checkinPlace .number {
   float: left;
