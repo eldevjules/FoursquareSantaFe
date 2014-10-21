@@ -255,7 +255,9 @@ function explore(){
                     imageUrl = '/img/pines/bar2.png';
                     place['clase'] = "color-7";
                 }
-                if(place.categories[0].name == "Café" || place.categories[0].name == "Diner"){
+                if(place.categories[0].name == "Café" ||
+                    place.categories[0].name == "Diner" ||
+                    place.categories[0].name == "Coffee Shop"){
                     imageUrl = '/img/pines/cafe2.png';
                     place['clase'] = "color-1";
                 }
@@ -383,7 +385,7 @@ function navegaSobreTrending(n){
       $(".placeContainer").animate({bottom:'10px'}, 1000);
       setTimeout(function(){
             $(".placeContainer").animate({bottom:'-550px'}, 1000);
-        }, 8000);
+        }, 13000);
 
       //Anima este marker
       markerN = markersTrending[n];
@@ -412,7 +414,7 @@ function navegaSobreTrending(n){
       //map.setZoom(zoomInicial);
       navegaSobreTrending(0);
     }
-  },10000);
+  },15000);
 }
 
 
