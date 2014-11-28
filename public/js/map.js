@@ -263,7 +263,11 @@ function explore(){
                 }
                 if(place.categories[0].name == "Food" || 
                     place.categories[0].name == "American Restaurant" || 
-                    place.categories[0].name == "Restaurant"){
+                    place.categories[0].name == "Restaurant" ||
+                    place.categories[0].name == "Burger Joint" ||
+                    place.categories[0].name == "Brewery Bar Restaurant" ||
+                    place.categories[0].name == "Seafood Restaurant"
+                    ){
                     imageUrl = '/img/pines/comida2.png';
                     place['clase'] = "color-10";
                 }
@@ -278,7 +282,8 @@ function explore(){
                     place['clase'] = "color-9";
                 }
                 if(place.categories[0].name == "Nightlife Spot" ||
-                    place.categories[0].name == "Nightclub"){
+                    place.categories[0].name == "Nightclub" ||
+                    place.categories[0].name == "Brewery"){
                     imageUrl = '/img/pines/noche2.png';
                     place['clase'] = "color-2";
                 }
